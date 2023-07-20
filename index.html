@@ -1,9 +1,79 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Data Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+	<center>
+    <h1>White Tracks</h1>
+	</center>
+    <table>
+        <thead>
+            <tr>
+                <th>Track</th>
+                <th>Player 1</th>
+                <th>Player 2</th>
+				<th>Player 1 wins</th>
+                <th>Player 2 wins</th>
+				<th>Time difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+				<td>A01</td>
+                <td><b>00:24.49</b></td>
+                <td>00:24.50</td>
+                <td>1</td>
+				<td>0</td>
+				<td>00:00:01</td>
+            </tr>
+            <tr>
+				<td>A02</td>
+                <td><b>00:15.96</b></td>
+                <td>00:16.17</td>
+                <td>2</td>
+				<td>0</td>
+				<td>00:00:21</td>
+            </tr>
+            <tr>
+                <td>A03</td>
+                <td><b>00:18.68</b></td>
+                <td><b>00:18.68</b></td>
+                <td>3</td>
+				<td>1</td>
+				<td>00:00:00</td>
+            </tr>
+            <tr>
+				<td>A04</td>
+                <td>00:05:96</td>
+                <td><b>00:05:90</b></td>
+                <td>3</td>
+				<td>2</td>
+				<td>00:00:06</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 </html>
