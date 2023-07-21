@@ -14,13 +14,13 @@ td {
 }
 
 body {
-    background-image: url('../Images/bg_large.jpg');
+    background-image: url('https://deambulatory.github.io/scores/Images/bg_large.jpg');
     background-size: auto;
 }
 
 @media screen and (max-width: 768px) {
     body {
-        background-image: url('../Images/bg_medium.jpg');
+        background-image: url('https://deambulatory.github.io/scores/Images/bg_medium.jpg');
         background-size: cover;
     }
 
@@ -29,7 +29,7 @@ body {
 
 @media screen and (max-width: 360px) {
     body {
-        background-image: url('../Images/bg_small.jpg');
+        background-image: url('https://deambulatory.github.io/scores/Images/bg_small.jpg');
         background-size: auto;
     }
 
