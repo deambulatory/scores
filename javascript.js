@@ -16,3 +16,5 @@ function test()
       };
     };
 };
+
+test();
