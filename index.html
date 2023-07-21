@@ -102,7 +102,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>A01</td>
+                <td id="downloadA01">A01</td>
                 <td class="player1bold">00:24.49</td>
                 <td class="player1">00:24.50</td>
                 <td class="player1">1-0</td>
@@ -333,6 +333,39 @@
         </tbody>
     </table>
 
+    <script>
+        // Check if the user is on a mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        // If not on a mobile device, add the click event listener
+        if (!isMobile) {
+
+            // Get a reference to the downloadCell
+            const downloadCell = document.getElementById("downloadA01");
+
+            // Attach a click event listener to the cell
+            downloadCell.addEventListener("click", () => {
+                // Ask the user for confirmation
+                const userConfirmation = window.confirm("Do you want to download the replay for " + downloadCell.textContent + "?");
+
+                if (userConfirmation) { downloadFile(); }
+                else { }
+            });
+
+            // Function to trigger the file download
+            function downloadFile() {
+                // Replace 'file_path_or_url' with the actual path or URL of the file you want to download
+                const fileURL = 'replays/' + downloadCell.textContent + '.gbx';
+                const fileName = downloadCell.textContent + '.gbx';
+
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.download = fileName;
+                link.click();
+            }
+
+        }
+    </script>
 
 </body>
 
