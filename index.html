@@ -8,7 +8,9 @@
     <style>
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 2%;
         }
 
         th,
@@ -19,7 +21,16 @@
         }
 
         body {
-            background-image: url('background.jpg');
+            background-image: url('test2.jpg');
+            background-size: auto;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            body {
+                background-image: url('mobile4.jpg');
+                background-size: cover;
+            }
         }
 
 
@@ -54,15 +65,14 @@
         <thead>
 
             <tr>
-                <th colspan="6">White Tracks</th>
+                <th colspan="5">White Tracks</th>
             </tr>
 
             <tr>
                 <th>Track</th>
                 <th style="background-color: #FFF2CC">Player 1</th>
                 <th style="background-color: #DDEBF7">Player 2</th>
-                <th>Player 1 wins</th>
-                <th>Player 2 wins</th>
+                <th>Score</th>
                 <th>Time difference</th>
             </tr>
         </thead>
@@ -71,32 +81,28 @@
                 <td>A01</td>
                 <td class="player1"><b>00:24.49</b></td>
                 <td>00:24.50</td>
-                <td>1</td>
-                <td>0</td>
+                <td>1-0</td>
                 <td>00:00:01</td>
             </tr>
             <tr>
                 <td>A02</td>
                 <td class="player1"><b>00:15.96</b></td>
                 <td>00:16.17</td>
-                <td>2</td>
-                <td>0</td>
+                <td>2-0</td>
                 <td>00:00:21</td>
             </tr>
             <tr>
                 <td>A03</td>
                 <td class="draw"><b>00:18.68</b></td>
                 <td class="draw"><b>00:18.68</b></td>
-                <td>3</td>
-                <td>1</td>
+                <td>3-1</td>
                 <td>00:00:00</td>
             </tr>
             <tr>
                 <td>A04</td>
                 <td>00:05:96</td>
                 <td class="player2"><b>00:05:90</b></td>
-                <td>3</td>
-                <td>2</td>
+                <td>3-2</td>
                 <td>00:00:06</td>
             </tr>
         </tbody>
