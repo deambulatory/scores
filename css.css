@@ -48,27 +48,27 @@ tr:hover {
     background-color: #c0c0c0;
 }
 
-td.player1 {
-    background-color: #FFF2CC;
-
-}
-
-td.player2 {
-    background-color: #DDEBF7;
-
-}
-
-td.draw {
+.draw {
     background-color: #FCE4D6;
 
 }
 
-td.player1bold {
+.player1 {
+    background-color: #FFF2CC;
+
+}
+
+.player2 {
+    background-color: #DDEBF7;
+
+}
+
+.player1bold {
     background-color: #FFF2CC;
     font-weight: bold;
 }
 
-td.player2bold {
+.player2bold {
     background-color: #DDEBF7;
     font-weight: bold;
 
