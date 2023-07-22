@@ -1,6 +1,6 @@
 ﻿$path = "C:\Users\$env:username\desktop\Replays"
 copy-item -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" -Recurse -Destination $path 
-$items = get-childitem $path | sort name
+$items = get-childitem $path | Sort-Object name
 
 foreach ($item in $items) {
 
