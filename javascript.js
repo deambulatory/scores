@@ -96,7 +96,7 @@ $(document).ready(function() {
 });
 
 function getTopThree(arr) {
-    let sortedTimes = arr;
+    let sortedTimes = [...arr];
 
     //remove the track name and track type
     sortedTimes.splice(0,2);
@@ -111,4 +111,3 @@ function getTopThree(arr) {
     
     return tafixed
 };
-//🥇🥈🥉
