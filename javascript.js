@@ -79,7 +79,7 @@ $(document).ready(function() {
 
                     if(data[j] !== "") {
                         if(medals[sortedTimes.indexOf(data[j])]) {
-                            td.appendChild(medals[sortedTimes.indexOf(data[j])]+" ");
+                            td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])]+" "));
                         };
 
                         td.appendChild(document.createTextNode(data[j]));
