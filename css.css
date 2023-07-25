@@ -16,22 +16,28 @@ td {
 
 body {
     background-image: url('https://deambulatory.github.io/scores/Images/bg_large.jpg');
-    background-size: auto;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+
 }
 
 @media screen and (max-width: 768px) {
     body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_medium.jpg');
+        background-attachment: fixed;
         background-size: cover;
+        background-position: center;
     }
-
 
 }
 
 @media screen and (max-width: 360px) {
     body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_small.jpg');
-        background-size: auto;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
     }
 
     th,
@@ -48,6 +54,8 @@ tr {
 tr:hover {
     background-color: #c0c0c0;
 }
+
+/*
 
 .draw {
     background-color: #FCE4D6;
@@ -67,3 +75,5 @@ tr:hover {
 .bold {
     font-weight: bold;
 }
+
+*/

@@ -33,6 +33,8 @@ $(document).ready(function () {
 
                 th.colSpan = headers.length - 1;
                 th.innerHTML = trackType;
+                th.style.fontSize = "16px";
+                
 
                 switch (trackType) {
                     case "White":
@@ -71,6 +73,10 @@ $(document).ready(function () {
                     let td = tr.insertCell();
 
                     if (data[j] !== "") {
+
+                        td.classList.add("downloadCell");
+                        td.setAttribute("data-file", data[j]);
+
                         if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
                         };
@@ -80,8 +86,10 @@ $(document).ready(function () {
                     } else {
                         td.appendChild(document.createTextNode("--:--.--"));
                     };
+
                 };
             };
+       
 
             document.body.appendChild(newTable);
         };
@@ -105,33 +113,29 @@ function getTopThree(arr) {
     return tafixed
 };
 
-
-/*
-
 if (!isMobile) {
+    // Add event listener to the document, delegating to cells with the "downloadCell" class
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCell") && clickedElement.parentElement.firstChild === clickedElement) {
+            const fileName = clickedElement.getAttribute("data-file");
+            const userConfirmation = window.confirm("Do you want to download the replay for " + clickedElement.textContent + "?");
 
-
-    const downloadCells = document.querySelectorAll(".downloadCell");
-
-    downloadCells.forEach((cell) => {
-        cell.addEventListener("click", () => {
-            const fileName = cell.getAttribute("data-file");
-            const userConfirmation = window.confirm("Do you want to download the replay for " + cell.textContent + "?");
-
-            if (userConfirmation) { downloadFile(fileName); }
-            else { }
-        });
+            if (userConfirmation) {
+                downloadFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
     });
 
     function downloadFile(fileName) {
 
-        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/' + fileName;
+        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/' + fileName + '.gbx';
         const link = document.createElement('a');
         link.href = fileURL;
         link.download = fileName;
         link.click();
     }
 }
-
-
-*/
