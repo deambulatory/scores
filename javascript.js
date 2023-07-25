@@ -34,6 +34,25 @@ $(document).ready(function () {
                 th.colSpan = headers.length - 1;
                 th.innerHTML = trackType;
 
+                switch (trackType) {
+                    case "White":
+                        th.style.backgroundColor = "White";
+                        break;
+                    case "Green":
+                        th.style.backgroundColor = "#32CD32";
+                        break;
+                    case "Blue":
+                        th.style.backgroundColor = "#0096FF";
+                        break;
+                    case "Red":
+                        th.style.backgroundColor = "Red";
+                        break;
+                    case "Black":
+                        th.style.backgroundColor = "Black";
+                        th.style.color = "white"
+                        break;
+                }
+
                 let tr2 = header.insertRow();
 
                 for (k = 1; k < headers.length; k++) {
