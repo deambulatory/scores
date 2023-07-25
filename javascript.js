@@ -33,6 +33,8 @@ $(document).ready(function () {
 
                 th.colSpan = headers.length - 1;
                 th.innerHTML = trackType;
+                th.style.fontSize = "16px";
+                
 
                 switch (trackType) {
                     case "White":
@@ -85,9 +87,9 @@ $(document).ready(function () {
                         td.appendChild(document.createTextNode("--:--.--"));
                     };
 
-
                 };
             };
+       
 
             document.body.appendChild(newTable);
         };
