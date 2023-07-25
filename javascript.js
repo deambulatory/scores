@@ -84,6 +84,8 @@ $(document).ready(function () {
                     } else {
                         td.appendChild(document.createTextNode("--:--.--"));
                     };
+
+
                 };
             };
 
@@ -113,7 +115,8 @@ if (!isMobile) {
     // Add event listener to the document, delegating to cells with the "downloadCell" class
     document.addEventListener("click", function (event) {
         const clickedElement = event.target;
-        if (clickedElement.classList.contains("downloadCell")) {
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCell") && clickedElement.parentElement.firstChild === clickedElement) {
             const fileName = clickedElement.getAttribute("data-file");
             const userConfirmation = window.confirm("Do you want to download the replay for " + clickedElement.textContent + "?");
 

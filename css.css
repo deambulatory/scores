@@ -30,7 +30,6 @@ body {
         background-position: center;
     }
 
-
 }
 
 @media screen and (max-width: 360px) {
@@ -56,6 +55,8 @@ tr:hover {
     background-color: #c0c0c0;
 }
 
+/*
+
 .draw {
     background-color: #FCE4D6;
 
@@ -74,3 +75,5 @@ tr:hover {
 .bold {
     font-weight: bold;
 }
+
+*/
