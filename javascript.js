@@ -77,8 +77,7 @@ $(document).ready(function () {
                         const pattern = /^[A-Za-z]\d{2}$/;
 
                         if (pattern.test(data[j])) {
-
-                            console.log(data[j])
+                            
                             td.classList.add("downloadCell");
                             td.setAttribute("data-file", data[j]);
 
