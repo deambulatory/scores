@@ -34,7 +34,7 @@ $(document).ready(function () {
                 th.colSpan = headers.length - 1;
                 th.innerHTML = trackType;
                 th.style.fontSize = "16px";
-                
+
 
                 switch (trackType) {
                     case "White":
@@ -74,8 +74,15 @@ $(document).ready(function () {
 
                     if (data[j] !== "") {
 
-                        td.classList.add("downloadCell");
-                        td.setAttribute("data-file", data[j]);
+                        const pattern = /^[A-Za-z]\d{2}$/;
+
+                        if (pattern.test(data[j])) {
+                            
+                            td.classList.add("downloadCell");
+                            td.setAttribute("data-file", data[j]);
+
+                        }
+
 
                         if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
@@ -89,7 +96,7 @@ $(document).ready(function () {
 
                 };
             };
-       
+
 
             document.body.appendChild(newTable);
         };
