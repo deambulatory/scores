@@ -26,7 +26,7 @@ foreach ($item in $items) {
 ##########################################
 
 $files = Get-ChildItem "C:\Users\$env:username\Desktop\Replays" -ErrorAction SilentlyContinue
-if (test-path C:\Users\$env:username\Desktop\times.txt) { remove-item C:\Users\$env:username\Desktop\times.txt }
+if (test-path C:\Users\$env:username\Desktop\Replays\times.txt) { remove-item C:\Users\$env:username\Desktop\Replays\times.txt }
 
 
 foreach ($file in $files) {
@@ -82,7 +82,7 @@ foreach ($file in $files) {
 
     $track = $file.name -replace ".gbx", ""
 
-    if ($flag) { "$track`t" + "$formattedTime" |  out-file "C:\Users\$env:username\Desktop\times.txt" -Append }
+    if ($flag) { "$track`t" + "$formattedTime" |  out-file "C:\Users\$env:username\Desktop\Replays\times.txt" -Append }
 
     else {
             
@@ -98,7 +98,7 @@ foreach ($file in $files) {
     
         $track = $file.name -replace ".gbx", ""
 
-        "$track`t" + "$time" |  out-file "C:\Users\$env:username\Desktop\times.txt" -Append
+        "$track`t" + "$time" |  out-file "C:\Users\$env:username\Desktop\Replays\times.txt" -Append
     }
 
 }
