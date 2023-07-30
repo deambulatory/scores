@@ -81,7 +81,6 @@ $(document).ready(function () {
 
                         }
 
-
                         if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
                         };
@@ -94,7 +93,6 @@ $(document).ready(function () {
 
                 };
             };
-
 
             document.body.appendChild(newTable);
         };
