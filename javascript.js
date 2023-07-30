@@ -2,7 +2,6 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const medals = ['⭐', '🥈', '🥉'];
 
-
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -34,7 +33,6 @@ $(document).ready(function () {
                 th.colSpan = headers.length - 1;
                 th.innerHTML = trackType;
                 th.style.fontSize = "16px";
-
 
                 switch (trackType) {
                     case "White":
