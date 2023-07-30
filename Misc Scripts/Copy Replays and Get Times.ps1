@@ -34,8 +34,8 @@ foreach ($file in $files) {
     $flag = $false
     $content = get-content $file.FullName
     $pattern = 'times best="(\d+)"'
-    $matches = [regex]::Matches($content, $pattern)
-    $number = $matches[0].Value  | Select-String -Pattern '\d+' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
+    $match = [regex]::Matches($content, $pattern)
+    $number = $match[0].Value  | Select-String -Pattern '\d+' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
     
     $numberAsString = $number.ToString()
     $numberWithoutLastDigit = [int]($numberAsString.Substring(0, $numberAsString.Length - 1))
