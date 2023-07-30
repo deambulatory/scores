@@ -37,6 +37,8 @@ foreach ($file in $files) {
     
     $flag = $false
     $content = get-content $file.FullName
+    if ($file.FullName -notmatch "A08") { continue }
+
     $pattern = 'times best="(\d+)"'
     $matches = [regex]::Matches($content, $pattern)
     $number = $matches[0].Value  | Select-String -Pattern '\d+' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
@@ -50,12 +52,14 @@ foreach ($file in $files) {
         $lastTwoNumbers = $numberWithoutLastDigit.ToString().Substring($numberWithoutLastDigit.ToString().Length - 2)
 
         if ($firstTwoNumbers -gt 59) { 
-            
-            $flag = $true
+     
             $minutes = [math]::DivRem($firstTwoNumbers, 60, [ref]$null)
-            $seconds = $firstThreeNumbers % 60
-            $formattedMinutes = "0" + "$minutes" + ":"   
-                     
+            $seconds = $firstTwoNumbers % 60
+
+            write-Host "$($file.name) $minutes minutes and $seconds seconds"
+            $flag = $true
+
+            $formattedMinutes = "0" + "$minutes" + ":"            
             if ($seconds.ToString().length -eq 1) {
 
                 $formattedSeconds = "0" + "$seconds" + ":"
