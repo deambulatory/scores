@@ -56,7 +56,6 @@ foreach ($file in $files) {
             $minutes = [math]::DivRem($firstTwoNumbers, 60, [ref]$null)
             $seconds = $firstTwoNumbers % 60
 
-            write-Host "$($file.name) $minutes minutes and $seconds seconds"
             $flag = $true
 
             $formattedMinutes = "0" + "$minutes" + ":"            
@@ -91,7 +90,6 @@ foreach ($file in $files) {
 
         else { $formattedSeconds = "$seconds" + "." }
 
-        write-Host "$($file.name) $minutes minutes and $seconds seconds"
         $flag = $true
         
         $formattedTime = $formattedMinutes + $formattedSeconds + $lastTwoNumbers
