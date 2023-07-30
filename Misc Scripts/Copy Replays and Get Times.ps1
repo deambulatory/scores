@@ -29,7 +29,7 @@ foreach ($item in $items) {
 
 ##########################################
 
-
+$files = Get-ChildItem "C:\Users\$env:username\Desktop\Replays" -ErrorAction SilentlyContinue
 if (test-path C:\Users\$env:username\Desktop\times.txt) { remove-item C:\Users\$env:username\Desktop\times.txt }
 
 
@@ -50,14 +50,12 @@ foreach ($file in $files) {
         $lastTwoNumbers = $numberWithoutLastDigit.ToString().Substring($numberWithoutLastDigit.ToString().Length - 2)
 
         if ($firstTwoNumbers -gt 59) { 
-     
+            
+            $flag = $true
             $minutes = [math]::DivRem($firstTwoNumbers, 60, [ref]$null)
             $seconds = $firstThreeNumbers % 60
-
-            write-Host "$($file.name) $minutes minutes and $seconds seconds"
-            $flag = $true
-
-            $formattedMinutes = "0" + "$minutes" + ":"            
+            $formattedMinutes = "0" + "$minutes" + ":"   
+                     
             if ($seconds.ToString().length -eq 1) {
 
                 $formattedSeconds = "0" + "$seconds" + ":"
