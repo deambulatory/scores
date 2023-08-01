@@ -204,7 +204,7 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
     let totalMillisecondsGreenPaul = 0;
     let totalMillisecondsGreenAidan = 0;
     let totalMillisecondsGreenDarren = 0;
-    
+
     let totalMillisecondsBluePaul = 0;
     let totalMillisecondsBlueAidan = 0;
     let totalMillisecondsBlueDarren = 0;
@@ -212,10 +212,6 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
     let totalMillisecondsRedPaul = 0;
     let totalMillisecondsRedAidan = 0;
     let totalMillisecondsRedDarren = 0;
-
-
-    const timeValues = [];
-
 
     for (let i = 1; i < Math.min(rows.length, 31); i++) {
 
@@ -234,21 +230,17 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
             const greenAidan = columns[3].trim();
             const greenDarren = columns[4].trim();
 
-            //console.log(greenPaul)
-
             totalMillisecondsGreenPaul += timeToMilliseconds(greenPaul);
             totalMillisecondsGreenAidan += timeToMilliseconds(greenAidan);
             totalMillisecondsGreenDarren += timeToMilliseconds(greenDarren);
 
         }
 
-        else if(i >= 31 && i <= 46) { // blue tracks
+        else if (i >= 31 && i <= 46) { // blue tracks
 
             const BluePaul = columns[2].trim();
             const BlueAidan = columns[3].trim();
             const BlueDarren = columns[4].trim();
-
-            //console.log(BluePaul)
 
             totalMillisecondsBluePaul += timeToMilliseconds(BluePaul);
             totalMillisecondsBlueAidan += timeToMilliseconds(BlueAidan);
@@ -261,8 +253,6 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
             const RedPaul = columns[2].trim();
             const RedAidan = columns[3].trim();
             const RedDarren = columns[4].trim();
-
-            //console.log(RedPaul)
 
             totalMillisecondsRedPaul += timeToMilliseconds(RedPaul);
             totalMillisecondsRedAidan += timeToMilliseconds(RedAidan);
