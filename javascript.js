@@ -153,22 +153,22 @@ const csvFilePath = 'data.csv';
 function timeToMilliseconds(time) {
     const timeRegex = /^(\d{2}):(\d{2})\.(\d{2,3})$/;
     const match = time.match(timeRegex);
-  
+
     if (!match) {
-      throw new Error(`Invalid time format: ${time}. Time should be in the format "mm:ss.ms".`);
+        throw new Error(`Invalid time format: ${time}. Time should be in the format "mm:ss.ms".`);
     }
-  
+
     const minutes = parseInt(match[1]);
     const seconds = parseInt(match[2]);
     const milliseconds = parseInt(match[3]);
-  
+
     if (isNaN(minutes) || isNaN(seconds) || isNaN(milliseconds)) {
-      throw new Error(`Invalid time format: ${time}. Unable to parse time values.`);
+        throw new Error(`Invalid time format: ${time}. Unable to parse time values.`);
     }
-  
+
     return minutes * 60000 + seconds * 1000 + milliseconds;
-  }
-  
+}
+
 // Function to convert milliseconds to time format "mm:ss.ms"
 function millisecondsToTime(milliseconds) {
     const minutes = Math.floor(milliseconds / 60000);
@@ -197,36 +197,125 @@ fs.readFile(csvFilePath, 'utf8', (err, data) => {
     }
 
     const rows = data.trim().split('\n');
+    let totalMillisecondsWhitePaul = 0;
+    let totalMillisecondsWhiteAidan = 0;
+    let totalMillisecondsWhiteDarren = 0;
+
+    let totalMillisecondsGreenPaul = 0;
+    let totalMillisecondsGreenAidan = 0;
+    let totalMillisecondsGreenDarren = 0;
+    
+    let totalMillisecondsBluePaul = 0;
+    let totalMillisecondsBlueAidan = 0;
+    let totalMillisecondsBlueDarren = 0;
+
+    let totalMillisecondsRedPaul = 0;
+    let totalMillisecondsRedAidan = 0;
+    let totalMillisecondsRedDarren = 0;
+
+
     const timeValues = [];
 
 
-    for (let i = 1; i < Math.min(rows.length, 16); i++) {
+    for (let i = 1; i < Math.min(rows.length, 31); i++) {
 
         let row = rows[i].trim();
 
-        // Handle \r at the end of the row
         if (row.endsWith('\r')) {
             row = row.slice(0, -1); // Remove the trailing \r
         }
 
         const columns = row.split(',');
-        const timeValue = columns[4].trim();
-        console.log(timeValue)
-        timeValues.push(timeValue);
 
-    }
 
-    // Check if there are at least 15 time values
-    if (timeValues.length >= 15) {
-        try {
-            const totalTime = addTimes(timeValues.slice(0, 15)); // Pass only the first 15 values to the addTimes function
-            console.log('Total Time:', totalTime); // Output: Total Time: 01:32.46 (example result)
-        } catch (error) {
-            console.error('Error:', error.message);
+        if (i >= 16 && i <= 31) { // green tracks
+
+            const greenPaul = columns[2].trim();
+            const greenAidan = columns[3].trim();
+            const greenDarren = columns[4].trim();
+
+            //console.log(greenPaul)
+
+            totalMillisecondsGreenPaul += timeToMilliseconds(greenPaul);
+            totalMillisecondsGreenAidan += timeToMilliseconds(greenAidan);
+            totalMillisecondsGreenDarren += timeToMilliseconds(greenDarren);
+
         }
-    } else {
-        console.error('Not enough time values in the CSV. Expected 15, but found', timeValues.length);
+
+        else if(i >= 31 && i <= 46) { // blue tracks
+
+            const BluePaul = columns[2].trim();
+            const BlueAidan = columns[3].trim();
+            const BlueDarren = columns[4].trim();
+
+            //console.log(BluePaul)
+
+            totalMillisecondsBluePaul += timeToMilliseconds(BluePaul);
+            totalMillisecondsBlueAidan += timeToMilliseconds(BlueAidan);
+            totalMillisecondsBlueDarren += timeToMilliseconds(BlueDarren);
+
+        }
+
+        else if (i >= 31 && i <= 46) { // red tracks
+
+            const RedPaul = columns[2].trim();
+            const RedAidan = columns[3].trim();
+            const RedDarren = columns[4].trim();
+
+            //console.log(RedPaul)
+
+            totalMillisecondsRedPaul += timeToMilliseconds(RedPaul);
+            totalMillisecondsRedAidan += timeToMilliseconds(RedAidan);
+            totalMillisecondsRedDarren += timeToMilliseconds(RedDarren);
+
+
+        }
+        else { // white tracks
+
+            const whitePaul = columns[2].trim();
+            const whiteAidan = columns[3].trim();
+            const whiteDarren = columns[4].trim();
+
+            // Convert time values to milliseconds and add to the respective variables
+            totalMillisecondsWhitePaul += timeToMilliseconds(whitePaul);
+            totalMillisecondsWhiteAidan += timeToMilliseconds(whiteAidan);
+            totalMillisecondsWhiteDarren += timeToMilliseconds(whiteDarren);
+        }
+
     }
+
+    const totalTimeWhitePaul = millisecondsToTime(totalMillisecondsWhitePaul);
+    const totalTimeWhiteAidan = millisecondsToTime(totalMillisecondsWhiteAidan);
+    const totalTimeWhiteDarren = millisecondsToTime(totalMillisecondsWhiteDarren);
+
+    const totalTimeGreenPaul = millisecondsToTime(totalMillisecondsGreenPaul);
+    const totalTimeGreenAidan = millisecondsToTime(totalMillisecondsGreenAidan);
+    const totalTimeGreenDarren = millisecondsToTime(totalMillisecondsGreenDarren);
+
+    const totalTimeBluePaul = millisecondsToTime(totalMillisecondsBluePaul);
+    const totalTimeBlueAidan = millisecondsToTime(totalMillisecondsBlueAidan);
+    const totalTimeBlueDarren = millisecondsToTime(totalMillisecondsBlueDarren);
+
+    const totalTimeRedPaul = millisecondsToTime(totalMillisecondsRedPaul);
+    const totalTimeRedAidan = millisecondsToTime(totalMillisecondsRedAidan);
+    const totalTimeRedDarren = millisecondsToTime(totalMillisecondsRedDarren);
+
+
+    console.log('White (Paul):', totalTimeWhitePaul);
+    console.log('Green (Paul):', totalTimeGreenPaul);
+    console.log('Blue (Paul):', totalTimeBluePaul);
+    console.log('Red (Paul):', totalTimeRedPaul);
+    console.log()
+    console.log('White (Aidan):', totalTimeWhiteAidan);
+    console.log('Green (Aidan):', totalTimeGreenAidan);
+    console.log('Blue (Aidan):', totalTimeBlueAidan);
+    console.log('Red (Aidan):', totalTimeRedAidan);
+    console.log()
+    console.log('White (Darren):', totalTimeWhiteDarren);
+    console.log('Green (Darren):', totalTimeGreenDarren);
+    console.log('Blue (Darren):', totalTimeBlueDarren);
+    console.log('Red (Darren):', totalTimeRedDarren);
+
 });
 
 
