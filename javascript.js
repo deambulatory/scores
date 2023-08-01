@@ -250,6 +250,9 @@ $(document).ready(function () {
             th.innerHTML = headers[k];
         }
 
+
+        
+
         const WhiteTimes = [totalTimeWhitePaul, totalTimeWhiteAidan, totalTimeWhiteDarren];
         const GreenTimes = [totalTimeGreenPaul, totalTimeGreenAidan, totalTimeGreenDarren];
         const BlueTimes = [totalTimeBluePaul, totalTimeBlueAidan, '--:--.--'];
