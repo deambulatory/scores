@@ -231,8 +231,6 @@ $(document).ready(function () {
         const totalTimeRedAidan = millisecondsToTime(totalMillisecondsRedAidan);
         const totalTimeRedDarren = millisecondsToTime(totalMillisecondsRedDarren);
 
-
-
         newTable = document.createElement("TABLE");
         document.body.appendChild(newTable);
 
@@ -334,39 +332,3 @@ if (!isMobile) {
     }
 }
 
-
-/*
-
-
-
-    for (let i = 1; i < Math.min(rows.length, 31); i++) {
-
-        let row = rows[i].trim();
-
-        if (row.endsWith('\r')) {
-            row = row.slice(0, -1); // Remove the trailing \r
-        }
-
-        const columns = row.split(',');
-
-
-        if (i >= 16 && i <= 31) { // green tracks
-
-            const greenPaul = columns[2].trim();
-            const greenAidan = columns[3].trim();
-            const greenDarren = columns[4].trim();
-
-            totalMillisecondsGreenPaul += timeToMilliseconds(greenPaul);
-            totalMillisecondsGreenAidan += timeToMilliseconds(greenAidan);
-            totalMillisecondsGreenDarren += timeToMilliseconds(greenDarren);
-
-        }
-
-      
- 
-
- 
-
-
-
-*/
