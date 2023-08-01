@@ -250,13 +250,12 @@ $(document).ready(function () {
             th.innerHTML = headers[k];
         }
 
-
-        
-
-        const WhiteTimes = [totalTimeWhitePaul, totalTimeWhiteAidan, totalTimeWhiteDarren];
-        const GreenTimes = [totalTimeGreenPaul, totalTimeGreenAidan, totalTimeGreenDarren];
-        const BlueTimes = [totalTimeBluePaul, totalTimeBlueAidan, '--:--.--'];
-        const RedTimes = [totalTimeRedPaul, totalTimeRedAidan, '--:--.--'];
+       // this needs updating so it isn't hardcoded
+       
+        const WhiteTimes = ['⭐ ' + totalTimeWhitePaul, '🥈 ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
+        const GreenTimes = ['⭐ ' + totalTimeGreenPaul, '🥈 ' + totalTimeGreenAidan, '🥉 ' + totalTimeGreenDarren];
+        const BlueTimes = ['🥈 ' +totalTimeBluePaul, '⭐ ' + totalTimeBlueAidan, '--:--.--'];
+        const RedTimes = ['⭐ ' + totalTimeRedPaul, '🥈 ' + totalTimeRedAidan, '--:--.--'];
         const BlackTimes = ['--:--.--', '--:--.--', '--:--.--'];
 
         // Create table rows for each time variable
