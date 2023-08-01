@@ -139,8 +139,6 @@ $(document).ready(function () {
             document.body.appendChild(newTable);
         };
 
-        //////
-
         var lines = [];
         let totalMillisecondsWhitePaul = 0;
         let totalMillisecondsWhiteAidan = 0;
@@ -162,7 +160,6 @@ $(document).ready(function () {
 
         for (var i = 0; i < 60; i++) {
 
-
             if (i > 14 && i < 30) { // green tracks
 
                 const greenPaul = lines[i][2];
@@ -176,7 +173,6 @@ $(document).ready(function () {
 
             else if (i > 29 && i < 45) {
 
-
                 const BluePaul = lines[i][2];
                 const BlueAidan = lines[i][3];
                 const BlueDarren = lines[i][4];
@@ -189,7 +185,6 @@ $(document).ready(function () {
   
              }
             else if (i > 44 && i < 61) {
-
                 
                 const redPaul = lines[i][2];
                 const redAidan = lines[i][3];
@@ -201,7 +196,6 @@ $(document).ready(function () {
 
              }
             else {
-
 
                 const whitePaul = lines[i][2];
                 const whiteAidan = lines[i][3];
@@ -251,7 +245,7 @@ $(document).ready(function () {
         }
 
        // this needs updating so it isn't hardcoded
-       
+
         const WhiteTimes = ['⭐ ' + totalTimeWhitePaul, '🥈 ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
         const GreenTimes = ['⭐ ' + totalTimeGreenPaul, '🥈 ' + totalTimeGreenAidan, '🥉 ' + totalTimeGreenDarren];
         const BlueTimes = ['🥈 ' +totalTimeBluePaul, '⭐ ' + totalTimeBlueAidan, '--:--.--'];
@@ -259,6 +253,7 @@ $(document).ready(function () {
         const BlackTimes = ['--:--.--', '--:--.--', '--:--.--'];
 
         // Create table rows for each time variable
+
         const totalTimesData = [
             { column: 'White', times: WhiteTimes },
             { column: 'Green', times: GreenTimes },
@@ -333,4 +328,3 @@ if (!isMobile) {
         link.click();
     }
 }
-
