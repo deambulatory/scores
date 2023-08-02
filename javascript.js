@@ -139,6 +139,8 @@ $(document).ready(function () {
             document.body.appendChild(newTable);
         };
 
+        //needs updating to automatically accomodate for all members of the CSV
+
         var lines = [];
         let totalMillisecondsWhitePaul = 0;
         let totalMillisecondsWhiteAidan = 0;
@@ -158,7 +160,9 @@ $(document).ready(function () {
             lines.push(data);
         }
 
-        for (var i = 0; i < 60; i++) {
+        // needs updating to accomodatte for blank time values
+
+        for (var i = 0; i < 60; i++) { // needs updating to 66 to include black tracks
 
             if (i > 14 && i < 30) { // green tracks
 
@@ -233,7 +237,7 @@ $(document).ready(function () {
         let th = tr.appendChild(document.createElement("th"));
 
         th.colSpan = headers.length - 1;
-        th.innerHTML = "Totals";
+        th.innerHTML = "Total Times";
         th.style.fontSize = "16px";
         th.style.backgroundColor = "#FFD580";
 
@@ -241,6 +245,8 @@ $(document).ready(function () {
 
         for (k = 1; k < headers.length; k++) {
             let th = tr2.appendChild(document.createElement("th"));
+            
+            if(headers[k] )
             th.innerHTML = headers[k];
         }
 
