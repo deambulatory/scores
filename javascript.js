@@ -142,18 +142,8 @@ $(document).ready(function () {
         //needs updating to automatically accomodate for all members of the CSV
 
         var lines = [];
-        let totalMillisecondsWhitePaul = 0;
-        let totalMillisecondsWhiteAidan = 0;
-        let totalMillisecondsWhiteDarren = 0;
-        let totalMillisecondsGreenPaul = 0;
-        let totalMillisecondsGreenAidan = 0;
-        let totalMillisecondsGreenDarren = 0;
-        let totalMillisecondsBluePaul = 0;
-        let totalMillisecondsBlueAidan = 0;
-        let totalMillisecondsBlueDarren = 0;
-        let totalMillisecondsRedPaul = 0;
-        let totalMillisecondsRedAidan = 0;
-        let totalMillisecondsRedDarren = 0;
+
+        let times = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
 
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
@@ -170,9 +160,9 @@ $(document).ready(function () {
                 const greenAidan = lines[i][3];
                 const greenDarren = lines[i][4];
 
-                totalMillisecondsGreenPaul += timeToMilliseconds(greenPaul);
-                totalMillisecondsGreenAidan += timeToMilliseconds(greenAidan);
-                totalMillisecondsGreenDarren += timeToMilliseconds(greenDarren);
+                times[0][1] += timeToMilliseconds(greenPaul);
+                times[1][1]+= timeToMilliseconds(greenAidan);
+                times[2][1] += timeToMilliseconds(greenDarren);
             }
 
             else if (i > 29 && i < 45) {
@@ -182,8 +172,8 @@ $(document).ready(function () {
                 const BlueDarren = lines[i][4];
 
                 
-                totalMillisecondsBluePaul += timeToMilliseconds(BluePaul);
-                totalMillisecondsBlueAidan += timeToMilliseconds(BlueAidan);
+                times[0][2] += timeToMilliseconds(BluePaul);
+                times[1][2] += timeToMilliseconds(BlueAidan);
                 //totalMillisecondsBlueDarren += timeToMilliseconds(BlueDarren);
  
   
@@ -194,8 +184,8 @@ $(document).ready(function () {
                 const redAidan = lines[i][3];
                 const redDarren = lines[i][4];
                     
-                totalMillisecondsRedPaul += timeToMilliseconds(redPaul);
-                totalMillisecondsRedAidan += timeToMilliseconds(redAidan);
+                times[0][3] += timeToMilliseconds(redPaul);
+                times[1][3] += timeToMilliseconds(redAidan);
                 //totalMillisecondsRedDarren += timeToMilliseconds(redDarren);
 
              }
@@ -205,29 +195,29 @@ $(document).ready(function () {
                 const whiteAidan = lines[i][3];
                 const whiteDarren = lines[i][4];
 
-                totalMillisecondsWhitePaul += timeToMilliseconds(whitePaul);
-                totalMillisecondsWhiteAidan += timeToMilliseconds(whiteAidan);
-                totalMillisecondsWhiteDarren += timeToMilliseconds(whiteDarren);
+                times[0][0] += timeToMilliseconds(whitePaul);
+                times[1][0] += timeToMilliseconds(whiteAidan);
+                times[2][0] += timeToMilliseconds(whiteDarren);
 
             }
 
         }
 
-        const totalTimeWhitePaul = millisecondsToTime(totalMillisecondsWhitePaul);
-        const totalTimeWhiteAidan = millisecondsToTime(totalMillisecondsWhiteAidan);
-        const totalTimeWhiteDarren = millisecondsToTime(totalMillisecondsWhiteDarren);
+        const totalTimeWhitePaul = millisecondsToTime(times[0][0]);
+        const totalTimeWhiteAidan = millisecondsToTime(times[1][0]);
+        const totalTimeWhiteDarren = millisecondsToTime(times[2][0]);
 
-        const totalTimeGreenPaul = millisecondsToTime(totalMillisecondsGreenPaul);
-        const totalTimeGreenAidan = millisecondsToTime(totalMillisecondsGreenAidan);
-        const totalTimeGreenDarren = millisecondsToTime(totalMillisecondsGreenDarren);
+        const totalTimeGreenPaul = millisecondsToTime(times[0][1]);
+        const totalTimeGreenAidan = millisecondsToTime(times[1][1]);
+        const totalTimeGreenDarren = millisecondsToTime(times[2][1]);
         
-        const totalTimeBluePaul = millisecondsToTime(totalMillisecondsBluePaul);
-        const totalTimeBlueAidan = millisecondsToTime(totalMillisecondsBlueAidan);
-        const totalTimeBlueDarren = millisecondsToTime(totalMillisecondsBlueDarren);
+        const totalTimeBluePaul = millisecondsToTime(times[0][2]);
+        const totalTimeBlueAidan = millisecondsToTime(times[1][2]);
+        const totalTimeBlueDarren = millisecondsToTime(times[2][2]);
 
-        const totalTimeRedPaul = millisecondsToTime(totalMillisecondsRedPaul);
-        const totalTimeRedAidan = millisecondsToTime(totalMillisecondsRedAidan);
-        const totalTimeRedDarren = millisecondsToTime(totalMillisecondsRedDarren);
+        const totalTimeRedPaul = millisecondsToTime(times[0][3]);
+        const totalTimeRedAidan = millisecondsToTime(times[1][3]);
+        const totalTimeRedDarren = millisecondsToTime(times[2][3]);
 
         newTable = document.createElement("TABLE");
         document.body.appendChild(newTable);
