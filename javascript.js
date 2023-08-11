@@ -1,6 +1,7 @@
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const medals = ['⭐', '🥈', '🥉'];
+const tracks = ["White", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
 
 function timeToMilliseconds(time) {
     const timeRegex = /^(\d{2}):(\d{2})\.(\d{2,3})$/;
@@ -59,8 +60,8 @@ $(document).ready(function () {
         var lines = [];
         var trackType = "";
         var newTable = "";
-
-
+        var timesTotal = [];
+        
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
 
@@ -76,6 +77,7 @@ $(document).ready(function () {
                 th.innerHTML = trackType;
                 th.style.fontSize = "16px";
 
+                
                 switch (trackType) {
                     case "White":
                         th.style.backgroundColor = "White";
@@ -101,7 +103,9 @@ $(document).ready(function () {
                     let th = tr2.appendChild(document.createElement("th"));
                     th.innerHTML = headers[k];
                 };
-
+                
+                //adds new row to the timesTotal array filled with x amount for x people in the csv
+                timesTotal.push(new Array(headers.length-2).fill(0));
             };
 
             if (data.length == headers.length) {
@@ -121,6 +125,8 @@ $(document).ready(function () {
                             td.classList.add("downloadCell");
                             td.setAttribute("data-file", data[j]);
 
+                        } else {
+                           timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
                         }
 
                         if (medals[sortedTimes.indexOf(data[j])]) {
@@ -236,15 +242,16 @@ $(document).ready(function () {
         for (k = 1; k < headers.length; k++) {
             let th = tr2.appendChild(document.createElement("th"));
             
-            if(headers[k] )
-            th.innerHTML = headers[k];
+            if(headers[k]) {
+                th.innerHTML = headers[k];
+            }
         }
 
        // this needs updating so it isn't hardcoded
 
-        const WhiteTimes = ['⭐ ' + totalTimeWhitePaul, '🥈 ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
+        const WhiteTimes = ['🥈 ' + totalTimeWhitePaul, '⭐ ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
         const GreenTimes = ['🥈 ' + totalTimeGreenPaul, '⭐ ' + totalTimeGreenAidan, '🥉 ' + totalTimeGreenDarren];
-        const BlueTimes = ['⭐ ' +totalTimeBluePaul, '🥈 ' + totalTimeBlueAidan, '--:--.--'];
+        const BlueTimes = ['🥈 ' +totalTimeBluePaul, '⭐ ' + totalTimeBlueAidan, '--:--.--'];
         const RedTimes = ['⭐ ' + totalTimeRedPaul, '🥈 ' + totalTimeRedAidan, '--:--.--'];
         const BlackTimes = ['--:--.--', '--:--.--', '--:--.--'];
 
@@ -278,6 +285,53 @@ $(document).ready(function () {
             }
         });
 
+        var newTable1 = document.createElement("TABLE");
+        document.body.appendChild(newTable1);
+
+        let header1 = newTable1.createTHead();
+        let tr1 = header1.insertRow();
+        let th1 = tr1.appendChild(document.createElement("th"));
+
+        th1.colSpan = headers.length - 1;
+        th1.innerHTML = "Total Times";
+        th1.style.fontSize = "16px";
+        th1.style.backgroundColor = "#FFD580";
+
+        let tr3 = header1.insertRow();
+
+        for (k = 1; k < headers.length; k++) {
+            let th1 = tr3.appendChild(document.createElement("th"));
+            
+            if(headers[k]) {
+                th1.innerHTML = headers[k];
+            }
+        }
+
+        //loop through our timesTotal array, placing them into the table
+        for(x=0; x<timesTotal.length; x++) {
+            //add row to table
+            let tr = newTable1.insertRow();
+            //add track name
+            let td = tr.insertCell();
+
+            let sortedTimes = getTopThree(timesTotal[x]);
+
+            td.textContent = tracks[x];
+
+            for(y=0; y<timesTotal[x].length; y++) {
+                //add time to table
+                let td1 = tr.insertCell();
+
+                if (medals[sortedTimes.indexOf(timesTotal[x][y])]) {
+                    td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
+                };
+
+                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
+                td1.textContent = timesTotal[x][y];
+            };
+        };
+
+        console.log(timesTotal);
     };
 });
 
