@@ -59,8 +59,9 @@ $(document).ready(function () {
         var lines = [];
         var trackType = "";
         var newTable = "";
-
-
+        var times1 = [];
+        var timesTotal = [];
+        
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
 
@@ -76,6 +77,7 @@ $(document).ready(function () {
                 th.innerHTML = trackType;
                 th.style.fontSize = "16px";
 
+                
                 switch (trackType) {
                     case "White":
                         th.style.backgroundColor = "White";
@@ -100,6 +102,7 @@ $(document).ready(function () {
                 for (k = 1; k < headers.length; k++) {
                     let th = tr2.appendChild(document.createElement("th"));
                     th.innerHTML = headers[k];
+                    times1.push([0]);
                 };
 
             };
@@ -129,11 +132,14 @@ $(document).ready(function () {
 
                         td.appendChild(document.createTextNode(data[j]));
 
+                        times1[j] += timeToMilliseconds(data[j]);
                     } else {
                         td.appendChild(document.createTextNode("--:--.--"));
                     };
 
                 };
+                timesTotal.push(times1)
+                times1 = [];
             };
 
             document.body.appendChild(newTable);
@@ -236,13 +242,15 @@ $(document).ready(function () {
         for (k = 1; k < headers.length; k++) {
             let th = tr2.appendChild(document.createElement("th"));
             
-            if(headers[k] )
-            th.innerHTML = headers[k];
+            if(headers[k]) {
+                th.innerHTML = headers[k];
+            }
         }
+        console.log(totalTimes);
 
        // this needs updating so it isn't hardcoded
 
-        const WhiteTimes = ['⭐ ' + totalTimeWhitePaul, '🥈 ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
+        const WhiteTimes = ['🥈 ' + totalTimeWhitePaul, '⭐ ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
         const GreenTimes = ['🥈 ' + totalTimeGreenPaul, '⭐ ' + totalTimeGreenAidan, '🥉 ' + totalTimeGreenDarren];
         const BlueTimes = ['⭐ ' +totalTimeBluePaul, '🥈 ' + totalTimeBlueAidan, '--:--.--'];
         const RedTimes = ['⭐ ' + totalTimeRedPaul, '🥈 ' + totalTimeRedAidan, '--:--.--'];
