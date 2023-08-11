@@ -284,16 +284,6 @@ $(document).ready(function () {
             }
         });
 
-        console.log(timesTotal);
-
-        for(x=0; x<timesTotal.length; x++) {
-            for(y=0; y<timesTotal[x].length; y++) {
-                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
-            };
-        };
-
-        console.log(timesTotal);
-
         var newTable1 = document.createElement("TABLE");
         document.body.appendChild(newTable1);
 
@@ -306,15 +296,31 @@ $(document).ready(function () {
         th1.style.fontSize = "16px";
         th1.style.backgroundColor = "#FFD580";
 
-        let tr3 = header.insertRow();
+        let tr3 = header1.insertRow();
 
         for (k = 1; k < headers.length; k++) {
             let th1 = tr3.appendChild(document.createElement("th"));
             
             if(headers[k]) {
-                th.innerHTML = headers[k];
+                th1.innerHTML = headers[k];
             }
         }
+
+        //loop through our timesTotal array, placing them into the table
+        for(x=0; x<timesTotal.length; x++) {
+            //add row to table
+            let tr = newTable1.insertRow();
+            //add track name
+            let td = tr.insertCell();
+            for(y=0; y<timesTotal[x].length; y++) {
+                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
+                //add time to table
+                let td1 = tr.insertCell();
+                td1.textContent = timesTotal[x][y];
+            };
+        };
+
+        console.log(timesTotal);
     };
 });
 
