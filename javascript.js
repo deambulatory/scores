@@ -1,6 +1,7 @@
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const medals = ['⭐', '🥈', '🥉'];
+const tracks = ["white", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
 
 function timeToMilliseconds(time) {
     const timeRegex = /^(\d{2}):(\d{2})\.(\d{2,3})$/;
@@ -315,6 +316,8 @@ $(document).ready(function () {
 
             let sortedTimes = getTopThree(timesTotal[x]);
 
+            td.textContent = tracks[x];
+            
             for(y=0; y<timesTotal[x].length; y++) {
                 timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
                 //add time to table
