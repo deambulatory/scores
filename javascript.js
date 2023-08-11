@@ -124,6 +124,8 @@ $(document).ready(function () {
                             td.classList.add("downloadCell");
                             td.setAttribute("data-file", data[j]);
 
+                        } else { //this is not where this should be but can't figure moving it out just yet
+                            times1[j] += timeToMilliseconds(data[j]);
                         }
 
                         if (medals[sortedTimes.indexOf(data[j])]) {
@@ -132,7 +134,6 @@ $(document).ready(function () {
 
                         td.appendChild(document.createTextNode(data[j]));
 
-                        times1[j] += timeToMilliseconds(data[j]);
                     } else {
                         td.appendChild(document.createTextNode("--:--.--"));
                     };
