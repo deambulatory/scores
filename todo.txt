@@ -1,0 +1,4 @@
+Add track names to timeTotal table
+fix medal issue with total times not accounting for missing track data
+when above issues fixed; remove redundant total times table (stampers original)
+add colour schemes etc to css and add class/ids to cells instead

@@ -312,10 +312,18 @@ $(document).ready(function () {
             let tr = newTable1.insertRow();
             //add track name
             let td = tr.insertCell();
+
+            let sortedTimes = getTopThree(timesTotal[x]);
+
             for(y=0; y<timesTotal[x].length; y++) {
                 timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
                 //add time to table
                 let td1 = tr.insertCell();
+
+                if (medals[sortedTimes.indexOf(timesTotal[x][y])]) {
+                    td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
+                };
+
                 td1.textContent = timesTotal[x][y];
             };
         };
