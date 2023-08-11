@@ -247,7 +247,7 @@ $(document).ready(function () {
                 th.innerHTML = headers[k];
             }
         }
-        console.log(totalTimes);
+        console.log(timesTotal);
 
        // this needs updating so it isn't hardcoded
 
