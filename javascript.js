@@ -125,7 +125,7 @@ $(document).ready(function () {
                             td.setAttribute("data-file", data[j]);
 
                         } else {
-                            timesTotal[timesTotal.length-1][j-1] += timeToMilliseconds(data[j]);
+                            timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
                         }
 
                         if (medals[sortedTimes.indexOf(data[j])]) {
@@ -248,6 +248,14 @@ $(document).ready(function () {
         
         console.log(timesTotal);
 
+        for(x=0; x<timesTotal.length; x++) {
+            for(y=0; y<timesTotal[x].length; y++) {
+                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
+            };
+        };
+
+        console.log(timesTotal);
+        
        // this needs updating so it isn't hardcoded
 
         const WhiteTimes = ['🥈 ' + totalTimeWhitePaul, '⭐ ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
