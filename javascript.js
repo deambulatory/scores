@@ -245,17 +245,7 @@ $(document).ready(function () {
                 th.innerHTML = headers[k];
             }
         }
-        
-        console.log(timesTotal);
 
-        for(x=0; x<timesTotal.length; x++) {
-            for(y=0; y<timesTotal[x].length; y++) {
-                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
-            };
-        };
-
-        console.log(timesTotal);
-        
        // this needs updating so it isn't hardcoded
 
         const WhiteTimes = ['🥈 ' + totalTimeWhitePaul, '⭐ ' + totalTimeWhiteAidan,'🥉 ' + totalTimeWhiteDarren];
@@ -294,6 +284,37 @@ $(document).ready(function () {
             }
         });
 
+        console.log(timesTotal);
+
+        for(x=0; x<timesTotal.length; x++) {
+            for(y=0; y<timesTotal[x].length; y++) {
+                timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
+            };
+        };
+
+        console.log(timesTotal);
+
+        var newTable1 = document.createElement("TABLE");
+        document.body.appendChild(newTable1);
+
+        let header1 = newTable1.createTHead();
+        let tr1 = header1.insertRow();
+        let th1 = tr1.appendChild(document.createElement("th"));
+
+        th1.colSpan = headers.length - 1;
+        th1.innerHTML = "Total Times";
+        th1.style.fontSize = "16px";
+        th1.style.backgroundColor = "#FFD580";
+
+        let tr3 = header.insertRow();
+
+        for (k = 1; k < headers.length; k++) {
+            let th1 = tr3.appendChild(document.createElement("th"));
+            
+            if(headers[k]) {
+                th.innerHTML = headers[k];
+            }
+        }
     };
 });
 
