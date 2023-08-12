@@ -103,3 +103,8 @@ foreach ($file in $files) {
 
 }
 
+# remove blank line at the end of txt file
+
+$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\Desktop\Replays\times.txt")
+$content = $content.Trim()
+[System.IO.File]::WriteAllText("C:\Users\$env:username\Desktop\Replays\times.txt", $content)
