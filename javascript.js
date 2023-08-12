@@ -134,9 +134,8 @@ $(document).ready(function () {
 
         //needs updating to automatically accomodate for all members of the CSV
 
+        let times = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]        
         var lines = [];
-
-        let times = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
 
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
@@ -214,7 +213,6 @@ $(document).ready(function () {
 
         newTable = document.createElement("TABLE");
         //document.body.appendChild(newTable); Removes Paul total time table
-
         let header = newTable.createTHead();
         let tr = header.insertRow();
         let th = tr.appendChild(document.createElement("th"));
