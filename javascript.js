@@ -301,14 +301,16 @@ $(document).ready(function () {
 
             let sortedTimes = getTopThreeTotal(timesTotal[x]);
 
-            console.log("Sorted times:", sortedTimes);
-            console.log("total times for track", x, " : ", timesTotal[x]);
-
             td.textContent = tracks[x];
 
             for(y=0; y<timesTotal[x].length; y++) {
                 //add time to table
                 let td1 = tr.insertCell();
+
+                console.log("Sorted times:", sortedTimes);
+                console.log("current time:", timesTotal[x][y]);
+
+                console.log(sortedTimes.indexOf(timesTotal[x][y]));
 
                 if (medals[sortedTimes.indexOf(timesTotal[x][y])]) {
                     td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
