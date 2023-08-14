@@ -299,7 +299,7 @@ $(document).ready(function () {
             //add track name
             let td = tr.insertCell();
 
-            let sortedTimes = getTopThree(timesTotal[x]);
+            let sortedTimes = getTopThreeTotal(timesTotal[x]);
 
             console.log("Sorted times:", sortedTimes);
             console.log("total times for track", x, " : ", timesTotal[x]);
@@ -328,6 +328,20 @@ function getTopThree(arr) {
 
     //remove the track name and track type
     sortedTimes.splice(0, 2);
+
+    //remove blanks
+    sortedTimes = sortedTimes.filter(n => n);
+
+    //sort the array, remove any duplicates and truncate to top 3
+    var tafixed = [...sortedTimes].sort()
+        .filter((v, i, self) => self.indexOf(v) === i)
+        .slice(0, 3);
+
+    return tafixed
+};
+
+function getTopThreeTotal(arr) {
+    let sortedTimes = [...arr];
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
