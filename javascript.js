@@ -310,7 +310,7 @@ $(document).ready(function () {
                 console.log("Sorted times:", sortedTimes);
                 console.log("current time:", timesTotal[x][y]);
 
-                console.log(sortedTimes.indexOf(timesTotal[x][y]));
+                console.log(medals[sortedTimes.indexOf(timesTotal[x][y])]);
 
                 if (medals[sortedTimes.indexOf(timesTotal[x][y])]) {
                     td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
