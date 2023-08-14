@@ -3,81 +3,81 @@
 # constants
 # ===========================================================
 
-$source_path = "C:\Users\BAMBUUS CHONK\Documents\TrackMania\Tracks\Replays\Autosaves"
+$source_path = "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves"
 $destination_path = "E:\_repos\private\trackmania_records"
 $destination_deambulatory_scores = "E:\_repos_sharedWithMe\scores"
 
 $tracknameToIndex = [ordered]@{
 
-     "A01" =  0 
-     "A02" =  1 
-     "A03" =  2 
-     "A04" =  3 
-     "A05" =  4 
-     "A06" =  5 
-     "A07" =  6 
-     "A08" =  7 
-     "A09" =  8 
-     "A10" =  9 
-     "A11" = 10 
-     "A12" = 11 
-     "A13" = 12 
-     "A14" = 13 
-     "A15" = 14 
+    "A01" = 0 
+    "A02" = 1 
+    "A03" = 2 
+    "A04" = 3 
+    "A05" = 4 
+    "A06" = 5 
+    "A07" = 6 
+    "A08" = 7 
+    "A09" = 8 
+    "A10" = 9 
+    "A11" = 10 
+    "A12" = 11 
+    "A13" = 12 
+    "A14" = 13 
+    "A15" = 14 
               
-     "B01" = 15 
-     "B02" = 16 
-     "B03" = 17 
-     "B04" = 18 
-     "B05" = 19 
-     "B06" = 20 
-     "B07" = 21 
-     "B08" = 22 
-     "B09" = 23 
-     "B10" = 24 
-     "B11" = 25 
-     "B12" = 26 
-     "B13" = 27 
-     "B14" = 28 
-     "B15" = 29 
+    "B01" = 15 
+    "B02" = 16 
+    "B03" = 17 
+    "B04" = 18 
+    "B05" = 19 
+    "B06" = 20 
+    "B07" = 21 
+    "B08" = 22 
+    "B09" = 23 
+    "B10" = 24 
+    "B11" = 25 
+    "B12" = 26 
+    "B13" = 27 
+    "B14" = 28 
+    "B15" = 29 
               
-     "C01" = 30 
-     "C02" = 31 
-     "C03" = 32 
-     "C04" = 33 
-     "C05" = 34 
-     "C06" = 35 
-     "C07" = 36 
-     "C08" = 37 
-     "C09" = 38 
-     "C10" = 39 
-     "C11" = 40 
-     "C12" = 41 
-     "C13" = 42 
-     "C14" = 43 
-     "C15" = 44 
+    "C01" = 30 
+    "C02" = 31 
+    "C03" = 32 
+    "C04" = 33 
+    "C05" = 34 
+    "C06" = 35 
+    "C07" = 36 
+    "C08" = 37 
+    "C09" = 38 
+    "C10" = 39 
+    "C11" = 40 
+    "C12" = 41 
+    "C13" = 42 
+    "C14" = 43 
+    "C15" = 44 
               
-     "D01" = 45 
-     "D02" = 46 
-     "D03" = 47 
-     "D04" = 48 
-     "D05" = 49 
-     "D06" = 50 
-     "D07" = 51 
-     "D08" = 52 
-     "D09" = 53 
-     "D10" = 54 
-     "D11" = 55 
-     "D12" = 56 
-     "D13" = 57 
-     "D14" = 58 
-     "D15" = 59 
+    "D01" = 45 
+    "D02" = 46 
+    "D03" = 47 
+    "D04" = 48 
+    "D05" = 49 
+    "D06" = 50 
+    "D07" = 51 
+    "D08" = 52 
+    "D09" = 53 
+    "D10" = 54 
+    "D11" = 55 
+    "D12" = 56 
+    "D13" = 57 
+    "D14" = 58 
+    "D15" = 59 
               
-     "E01" = 60 
-     "E02" = 61 
-     "E03" = 62 
-     "E04" = 63 
-     "E05" = 64 
+    "E01" = 60 
+    "E02" = 61 
+    "E03" = 62 
+    "E04" = 63 
+    "E05" = 64 
 }
 
 # ===========================================================
@@ -216,16 +216,16 @@ Function destination_update() {
 
         $filenameSplit = $replayFile.Name.Split("_")
     
-        $trackname = $filenameSplit[$filenameSplit.Count - 1].Substring(0,3)
+        $trackname = $filenameSplit[$filenameSplit.Count - 1].Substring(0, 3)
         $tracktime = (getTrackTime($replayFile.FullName))
 
-        $destination_filename = $trackname + "_" + ($tracktime.Replace(":","-").Replace(".","-")) + ".gbx"
+        $destination_filename = $trackname + "_" + ($tracktime.Replace(":", "-").Replace(".", "-")) + ".gbx"
 
-       if (Test-Path "$destination_path\$destination_filename") { Continue }
+        if (Test-Path "$destination_path\$destination_filename") { Continue }
 
-       Copy-Item -LiteralPath $replayFile.FullName -Destination "$destination_path\$destination_filename"
+        Copy-Item -LiteralPath $replayFile.FullName -Destination "$destination_path\$destination_filename"
 
-       Write-Output "> $destination_filename"
+        Write-Output "> $destination_filename"
     }
 }
 
@@ -314,7 +314,7 @@ Function destination_times_update() {
         $filenameSplit = $replayFile.Name.Split("_")
 
         $trackname = $filenameSplit[0]
-        $tracktime = $filenameSplit[1].Substring(0,8)
+        $tracktime = $filenameSplit[1].Substring(0, 8)
 
         if ($times[$trackname] -eq '') { $times[$trackname] = $tracktime }
         elseif ($tracktime -lt $times[$trackname]) { $times[$trackname] = $tracktime }
@@ -322,9 +322,9 @@ Function destination_times_update() {
 
     "trackname,tracktime" | Out-File -FilePath "$destination_path\times.csv" -Append
 
-    foreach($trackname in $times.Keys) { 
+    foreach ($trackname in $times.Keys) { 
         $tracktime = $times[$trackname]
-        if ($tracktime -ne '') { $tracktime = $tracktime.Substring(0,2) + ':' + $tracktime.Substring(3,2) + '.' + $tracktime.Substring(6,2) }
+        if ($tracktime -ne '') { $tracktime = $tracktime.Substring(0, 2) + ':' + $tracktime.Substring(3, 2) + '.' + $tracktime.Substring(6, 2) }
         
         $trackname + ',' + $tracktime | Out-File -FilePath "$destination_path\times.csv" -Append
     }
@@ -355,7 +355,7 @@ Function deambulatory_data_update() {
             }
             $count++
         }
-        if ($selectingPlayer) {Write-Host "Invalid Input"}
+        if ($selectingPlayer) { Write-Host "Invalid Input" }
     }
 
     Write-Host "`n"
@@ -376,7 +376,7 @@ Function deambulatory_data_update() {
         $tracktime = $lineSplit[1]
         $tracknameIndex = $tracknameToIndex[$trackname]
 
-        $dataLine = $dataFile[$tracknameIndex+1]
+        $dataLine = $dataFile[$tracknameIndex + 1]
         $dataLineSplit = $dataLine.Split(',')
         if ($dataLineSplit[1] -eq $trackname) {
             if ($dataLineSplit[$columnnumberForPlayer] -ne $tracktime) {
@@ -384,8 +384,8 @@ Function deambulatory_data_update() {
                 $dataLineSplit[$columnnumberForPlayer] = $tracktime
                 $previewOutString = ''
                 foreach ($s in $dataLineSplit) { $previewOutString += $s + ',' }
-                $previewOutString = $previewOutString.Substring(0,$previewOutString.Length-1)
-                $dataFile[$tracknameIndex+1] = $previewOutString
+                $previewOutString = $previewOutString.Substring(0, $previewOutString.Length - 1)
+                $dataFile[$tracknameIndex + 1] = $previewOutString
                 Write-host "                              to: $previewOutString`n"
             }
         }
@@ -516,7 +516,7 @@ Write-Host "> Pull latest changes to deamblatory_scores first!"
 
 # control loop
 
-while($notFinished) {
+while ($notFinished) {
 
     Write-Host "`n"
     Write-Host "Select option:"
@@ -541,27 +541,27 @@ while($notFinished) {
 
     $option = Read-Host "`noption"
 
-    switch($option) {
+    switch ($option) {
     
-         "0" <# Exit #> { exit }
+        "0" <# Exit #> { exit }
          
-         "1" <# Read me please #> { readMePlease }
+        "1" <# Read me please #> { readMePlease }
          
-         "2" <# source > open #> { Invoke-Item $source_path }
+        "2" <# source > open #> { Invoke-Item $source_path }
          
-         "3" <# destination > update #> { destination_update }
+        "3" <# destination > update #> { destination_update }
          
-         "4" <# destination > open #> { Invoke-Item $destination_path }
+        "4" <# destination > open #> { Invoke-Item $destination_path }
          
-         "5" <# destination > times.csv > update #> { destination_times_update }
+        "5" <# destination > times.csv > update #> { destination_times_update }
          
-         "6" <# destination > times.csv > open #> { Invoke-Item "$destination_path\times.csv" }
+        "6" <# destination > times.csv > open #> { Invoke-Item "$destination_path\times.csv" }
          
-         "7" <# deambulatory > open #> { Invoke-Item $destination_deambulatory_scores }
+        "7" <# deambulatory > open #> { Invoke-Item $destination_deambulatory_scores }
          
-         "8" <# deambulatory > data.csv > update #> { deambulatory_data_update }
+        "8" <# deambulatory > data.csv > update #> { deambulatory_data_update }
          
-         "9" <# deambulatory > data.csv > open #> { Invoke-Item "$destination_deambulatory_scores\data.csv" }
+        "9" <# deambulatory > data.csv > open #> { Invoke-Item "$destination_deambulatory_scores\data.csv" }
 
         "10" <# deambulatory > open online repository #> { Start-Process "https://github.com/deambulatory/scores/" }
 

@@ -30,19 +30,6 @@ function millisecondsToTime(milliseconds) {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${remainingMilliseconds.toString().padStart(3, '0').slice(0, 2)}`;
 }
 
-// Function to add an array of time values in "mm:ss.ms" format
-function addTimes(timeArray) {
-    if (!Array.isArray(timeArray) || timeArray.length === 0) {
-        throw new Error('Invalid input: timeArray should be a non-empty array of time values.');
-    }
-
-    // Convert time values to milliseconds and sum them
-    const totalMilliseconds = timeArray.reduce((acc, time) => acc + timeToMilliseconds(time), 0);
-
-    // Convert the total milliseconds back to "mm:ss.ms" format
-    return millisecondsToTime(totalMilliseconds);
-}
-
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -126,7 +113,7 @@ $(document).ready(function () {
                             td.setAttribute("data-file", data[j]);
 
                         } else {
-                            timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
+                           timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
                         }
 
                         if (medals[sortedTimes.indexOf(data[j])]) {
@@ -147,9 +134,8 @@ $(document).ready(function () {
 
         //needs updating to automatically accomodate for all members of the CSV
 
+        let times = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]        
         var lines = [];
-
-        let times = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
 
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
@@ -226,8 +212,7 @@ $(document).ready(function () {
         const totalTimeRedDarren = millisecondsToTime(times[2][3]);
 
         newTable = document.createElement("TABLE");
-        document.body.appendChild(newTable);
-
+        //document.body.appendChild(newTable); Removes Paul total time table
         let header = newTable.createTHead();
         let tr = header.insertRow();
         let th = tr.appendChild(document.createElement("th"));
