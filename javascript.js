@@ -13,7 +13,7 @@ function timeToMilliseconds(time) {
 
     const minutes = parseInt(match[1]);
     const seconds = parseInt(match[2]);
-    const milliseconds = parseInt(match[3]);
+    const milliseconds = parseInt(match[3] + "0");
 
     if (isNaN(minutes) || isNaN(seconds) || isNaN(milliseconds)) {
         throw new Error(`Invalid time format: ${time}. Unable to parse time values.`);
@@ -316,7 +316,7 @@ $(document).ready(function () {
             };
         };
 
-        console.log(timesTotal);
+        //console.log(timesTotal);
     };
 });
 
