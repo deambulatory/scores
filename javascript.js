@@ -307,17 +307,12 @@ $(document).ready(function () {
                 //add time to table
                 let td1 = tr.insertCell();
 
-                console.log("Sorted times:", sortedTimes);
-                console.log("current time:", timesTotal[x][y]);
-
-                console.log(medals[sortedTimes.indexOf(timesTotal[x][y])]);
-
                 if (medals[sortedTimes.indexOf(timesTotal[x][y])]) {
                     td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
                 };
 
                 timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
-                td1.textContent = timesTotal[x][y];
+                td1.appendChild(document.createTextNode(timesTotal[x][y]));
             };
         };
 
