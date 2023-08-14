@@ -301,8 +301,9 @@ $(document).ready(function () {
 
             let sortedTimes = getTopThree(timesTotal[x]);
 
-            console.log(sortedTimes);
-            
+            console.log("Sorted times:", sortedTimes);
+            console.log("total times for track", x, " : ", timesTotal[x]);
+
             td.textContent = tracks[x];
 
             for(y=0; y<timesTotal[x].length; y++) {
