@@ -54,3 +54,20 @@ tr {
 tr:hover {
     background-color: #c0c0c0;
 }
+
+.white {
+    background-color: white;
+}
+.black {
+    background-color: black;
+    color: white;
+}
+.red {
+    background-color: red;
+}
+.blue {
+    background-color: #0096FF;
+}
+.green {
+    background-color: #32CD32;
+}
