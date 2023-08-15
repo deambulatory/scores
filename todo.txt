@@ -1,3 +1,4 @@
 fix medal issue with total times not accounting for missing track data
 add colour schemes etc to css and add class/ids to cells instead
 add table for number of nadeo, gold, silver, bronze medals
+fix issue with 1hour times on maps
