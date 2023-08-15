@@ -49,6 +49,13 @@ $(document).ready(function () {
         var timesTotal = [];
         var timeCheck = [];
         
+        //TODO:
+        //load data from nadeoTimes into a 2d array
+        //when times are read in, compare to nadeo array
+        //if times lower than nadeo then nadeo medal, cascade down to bronze
+        //create a new table with players in cols, tracks in rows, medal type in cell
+        //add up total and display, total nadeo, gold, silver, bronze
+        //260 medals in total, 4 per 65 maps
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
 
