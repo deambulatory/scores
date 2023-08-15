@@ -203,29 +203,31 @@ function getTopThree(arr) {
 };
 
 function getTopThreeTotal(arr, checkArr) {
-    let sortedTimes = [];
+    let sortedTimes2 = [];
 
     console.log(arr);
     console.log(checkArr);
 
-    console.log(sortedTimes);
+    console.log(sortedTimes2);
 
-    /*
-    for(z=0; z<arr.length-1; z++) {
-        //sortedTimes.push(arr[z]);
-    };
-    */
-    console.log(arr.length-1);
     
+    for(z=0; z<arr.length-1; z++) {
+        sortedTimes2.push(arr[z]);
+    };
+    
+    console.log(arr.length-1);
+    console.log(sortedTimes2);
+
+
     //remove blanks
-    sortedTimes = sortedTimes.filter(n => n);
+    sortedTimes2 = sortedTimes2.filter(n => n);
 
     //sort the array, remove any duplicates and truncate to top 3
-    var tafixed = [...sortedTimes].sort()
+    var tafixed2 = [...sortedTimes2].sort()
         .filter((v, i, self) => self.indexOf(v) === i)
         .slice(0, 3);
 
-    return tafixed
+    return tafixed2
 };
 
 if (!isMobile) {
