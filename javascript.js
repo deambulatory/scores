@@ -64,25 +64,7 @@ $(document).ready(function () {
                 th.innerHTML = trackType;
                 th.style.fontSize = "16px";
 
-                
-                switch (trackType) {
-                    case "White":
-                        th.style.backgroundColor = "White";
-                        break;
-                    case "Green":
-                        th.style.backgroundColor = "#32CD32";
-                        break;
-                    case "Blue":
-                        th.style.backgroundColor = "#0096FF";
-                        break;
-                    case "Red":
-                        th.style.backgroundColor = "Red";
-                        break;
-                    case "Black":
-                        th.style.backgroundColor = "Black";
-                        th.style.color = "white"
-                        break;
-                }
+                th.classList.add(trackType);
 
                 let tr2 = header.insertRow();
 
