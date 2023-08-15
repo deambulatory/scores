@@ -1,6 +1,6 @@
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const medals = ['⭐', '🥈', '🥉'];
+const medals = ['⭐', '🥈', '🥉', '💩'];
 const tracks = ["White", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
 
 function timeToMilliseconds(time) {
