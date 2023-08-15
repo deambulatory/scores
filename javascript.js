@@ -212,7 +212,7 @@ function getTopThreeTotal(arr, checkArr) {
 
     
     for(z=0; z<arr.length; z++) {
-        if(checkArr===true) {
+        if(checkArr[z]===true) {
             sortedTimes2.push(arr[z]);
         };
     };
