@@ -210,10 +210,13 @@ function getTopThreeTotal(arr, checkArr) {
 
     console.log(sortedTimes);
 
-    for(x=0; x<arr.length-1; x++) {
-        //sortedTimes.push(arr[x]);
+    /*
+    for(z=0; z<arr.length-1; z++) {
+        //sortedTimes.push(arr[z]);
     };
-
+    */
+    console.log(arr.length-1);
+    
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
 
