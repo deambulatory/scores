@@ -206,7 +206,7 @@ function getTopThreeTotal(arr, checkArr) {
     let sortedTimes = [...arr];
 
 
-    for(x=0; x<arr.length-1, x++;) {
+    for(x=0; x<arr.length-1; x++) {
         if(checkArr[x]) {
             sortedTimes.push(arr[x]);
         }
