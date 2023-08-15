@@ -205,14 +205,13 @@ function getTopThree(arr) {
 function getTopThreeTotal(arr, checkArr) {
     let sortedTimes = [...arr];
 
-    /*
+
     for(x=0; x<arr.length-1, x++;) {
-        if(checkArr) {
+        if(checkArr[x]) {
             sortedTimes.push(arr[x]);
         }
     };
-    */
-   
+
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
 
