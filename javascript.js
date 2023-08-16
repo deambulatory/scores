@@ -89,6 +89,7 @@ $(document).ready(function () {
                 let tr = newTable.insertRow();
 
                 let sortedTimes = getTopThree(data);
+                let worstTime = getWorst(data);
 
                 for (var j = 1; j < headers.length; j++) {
                     let td = tr.insertCell();
@@ -106,7 +107,9 @@ $(document).ready(function () {
                            timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
                         }
 
-                        if (medals[sortedTimes.indexOf(data[j])]) {
+                        if(data[j] = worstTime) {
+                            td.appendChild(document.createTextNode(medals[-1] + " "));
+                        } else if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
                         };
 
@@ -194,21 +197,11 @@ function getTopThree(arr) {
 function getTopThreeTotal(arr, checkArr) {
     let sortedTimes2 = [];
 
-    console.log(arr);
-    console.log(checkArr);
-
-    console.log(sortedTimes2);
-
-    
     for(z=0; z<arr.length; z++) {
         if(checkArr[z]===true) {
             sortedTimes2.push(arr[z]);
         };
     };
-    
-    console.log(arr.length-1);
-    console.log(sortedTimes2);
-
 
     //remove blanks
     sortedTimes2 = sortedTimes2.filter(n => n);
@@ -219,6 +212,23 @@ function getTopThreeTotal(arr, checkArr) {
         .slice(0, 3);
 
     return tafixed2
+};
+
+function getWorst(arr) {
+    let sortedTimes = [...arr];
+
+    //remove the track name and track type
+    sortedTimes.splice(0, 2);
+
+    //remove blanks
+    sortedTimes = sortedTimes.filter(n => n);
+
+    //sort the array, remove any duplicates and truncate to top 3
+    var tafixed = [...sortedTimes].sort()
+        .filter((v, i, self) => self.indexOf(v) === i)
+        .slice(-1);
+
+    return tafixed
 };
 
 if (!isMobile) {
