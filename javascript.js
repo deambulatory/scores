@@ -107,7 +107,7 @@ $(document).ready(function () {
                            timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
                         }
 
-                        if(data[j] = worstTime) {
+                        if(data[j] = worstTime[0]) {
                             td.appendChild(document.createTextNode(medals[-1] + " "));
                         } else if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
