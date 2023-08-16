@@ -40,6 +40,29 @@ foreach ($file in $files) {
     $numberAsString = $number.ToString()
     $numberWithoutLastDigit = [int]($numberAsString.Substring(0, $numberAsString.Length - 1))
 
+    if ($numberWithoutLastDigit.ToString().Length -eq 6) {
+        # eg 3979550 (1:06:19.55) 
+
+        $flag = $true
+
+        $firstFourNumbers = $numberWithoutLastDigit.ToString().Substring(0, 4)
+        $lastTwoNumbers = $numberWithoutLastDigit.ToString().Substring($numberWithoutLastDigit.ToString().Length - 2)
+                
+        $hour = [math]::DivRem($firstFourNumbers, 3600, [ref]$null)
+        $minutes = [math]::DivRem($firstFourNumbers - 3600, 60, [ref]$null)
+        $formattedMinutes = "0" + "$minutes" + ":" 
+        $seconds = $firstFourNumbers % 60
+        
+        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+        else { $formattedSeconds = "$seconds" + "." }
+
+        $formattedHour = "$hour" + ":"
+
+        $formattedTime = $formattedHour + $formattedMinutes + $formattedSeconds + $lastTwoNumbers   
+
+    }
+
+
     if ($numberWithoutLastDigit.ToString().Length -eq 4) {
 
         $firstTwoNumbers = $numberWithoutLastDigit.ToString().Substring(0, 2)
