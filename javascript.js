@@ -4,31 +4,46 @@ const medals = ['⭐', '🥈', '🥉', '💩'];
 const tracks = ["White", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
 
 function timeToMilliseconds(time) {
-    const timeRegex = /^(\d{2}):(\d{2})\.(\d{2,3})$/;
+    const timeRegex = /^((\d{1,2}):)?(\d{2}):(\d{2})\.(\d{2,3})$/;
     const match = time.match(timeRegex);
 
     if (!match) {
-        throw new Error(`Invalid time format: ${time}. Time should be in the format "mm:ss.ms".`);
+        throw new Error(`Invalid time format: ${time}. Time should be in the format "hh:mm:ss.ms" or "mm:ss.ms".`);
     }
 
-    const minutes = parseInt(match[1]);
-    const seconds = parseInt(match[2]);
-    const milliseconds = parseInt(match[3] + "0");
+    const hours = match[2] ? parseInt(match[2]) : 0;
+    const minutes = parseInt(match[3]);
+    const seconds = parseInt(match[4]);
+    const milliseconds = parseInt(match[5] + "0");
 
-    if (isNaN(minutes) || isNaN(seconds) || isNaN(milliseconds)) {
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds) || isNaN(milliseconds)) {
         throw new Error(`Invalid time format: ${time}. Unable to parse time values.`);
-    }
+    } 
 
-    return minutes * 60000 + seconds * 1000 + milliseconds;
+    return hours * 3600000 + minutes * 60000 + seconds * 1000 + milliseconds;
 }
 
 // Function to convert milliseconds to time format "mm:ss.ms"
 function millisecondsToTime(milliseconds) {
-    const minutes = Math.floor(milliseconds / 60000);
+    const hours = Math.floor(milliseconds / 3600000);
+    const minutes = Math.floor((milliseconds % 3600000) / 60000);
     const seconds = Math.floor((milliseconds % 60000) / 1000);
     const remainingMilliseconds = milliseconds % 1000;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${remainingMilliseconds.toString().padStart(3, '0').slice(0, 2)}`;
+
+    if (hours > 0) {
+        const formattedHours = hours.toString().padStart(1, '0');
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const formattedSeconds = seconds.toString().padStart(2, '0');
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    } else {
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const formattedSeconds = seconds.toString().padStart(2, '0');
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    }
 }
+
 
 $(document).ready(function () {
     $.ajax({
