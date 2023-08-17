@@ -1,11 +1,20 @@
 
 # ===========================================================
-# constants
+# constants - players
 # ===========================================================
 
 $source_path = "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves"
 $destination_path = "E:\_repos\private\trackmania_records"
 $destination_deambulatory_scores = "E:\_repos_sharedWithMe\scores"
+
+$trackmania_executable_path = "C:\Program Files (x86)\Steam\steamapps\common\TrackMania Nations Forever"
+
+$playerName_source = "BAMBUUSCHONK"
+$playerName_destination = "Darren"
+
+# ===========================================================
+# constants - script
+# ===========================================================
 
 $tracknameToIndex = [ordered]@{
 
@@ -207,6 +216,8 @@ Function readMePlease() {
 }
 
 Function destination_update() {
+
+    
 
     Write-Output "`nNew Records:`n"
 
@@ -477,7 +488,7 @@ Function getTrackTime($filePath) {
 # logic
 # ===========================================================
 
-# test working directories
+# test paths
 
 $notAllDirectoriesFound = $false
 
@@ -502,12 +513,20 @@ else {
     $notAllDirectoriesFound = $true
 }
 
+
+
 if ($notAllDirectoriesFound) {
     Write-Host "`nNot all directories found, quitting"
     readMePlease
     Read-Host "`n Press any key to quit"
     exit
 }
+
+# show player values
+
+
+
+# note
 
 Write-Host "`n~~~~~"
 Write-Host "NOTE:`n"
@@ -518,6 +537,33 @@ Write-Host "> Pull latest changes to deamblatory_scores first!"
 
 while ($notFinished) {
 
+<#
+    re-order funtions:
+
+     0. exit
+     1. read me please
+
+     2. open - source
+     3. open - destination
+     4. open - destination\times.csv
+     5. open - deambulatory\scores
+     6. open - deambulatory\scores\data.csv
+
+     7. step 1: dembulatory\scores - pull latest changes
+
+     8. step 2: update - destination
+     9. step 3: update - destination\times.csv
+    10. step 4: update - deambulatory\scores\data.csv
+
+    11. step 5: deambulatory\scores - push latest changes
+
+    12. run all steps
+
+    13. launch trackmania
+#>
+
+
+
     Write-Host "`n"
     Write-Host "Select option:"
     Write-Host ">-------------"
@@ -525,47 +571,64 @@ while ($notFinished) {
     Write-Host "-<|  0. exit"
     Write-Host "  |  1. read me please"
     Write-Host "  |"
-    Write-Host "  |  2. source > open"
+    Write-Host "  |  2. open > source"
+    Write-Host "  |  3. open > destination"
+    Write-Host "  |  4. open > destination > times.csv"
+    Write-Host "  |  5. open > deambulatory > scores"
+    Write-Host "  |  6. open > deambulatory > scores > data.csv"
+    Write-Host "  |  7. open > deambulatory > online repo"
+    Write-Host "  |  8. open > deambulatory > website"
     Write-Host "  |"
-    Write-Host "  |  3. destination > update"
-    Write-Host "  |  4. destination > open"
-    Write-Host "  |  5. destination > times.csv > update"
-    Write-Host "  |  6. destination > times.csv > open"
+    Write-Host "  |  9. step 1: dembulatory > scores > pull latest changes | NOT IMPLEMENTED"
     Write-Host "  |"
-    Write-Host "  |  7. deambulatory > open"
-    Write-Host "  |  8. deambulatory > data.csv > update"
-    Write-Host "  |  9. deambulatory > data.csv > open"
+    Write-Host "  | 10. step 2: update - destination"
+    Write-Host "  | 11. step 3: update - destination > times.csv"
+    Write-Host "  | 12. step 4: update - deambulatory > scores > data.csv"
     Write-Host "  |"
-    Write-Host "  | 10. deambulatory > open online repository"
-    Write-Host "  | 11. deambulatory > open website"
+    Write-Host "  | 13. step 5: deambulatory > scores > push latest changes | NOT IMPLEMENTED"
+    Write-Host "  |"
+    Write-Host "  | 14. run all steps                                       | NOT IMPLEMENTED"
+    Write-Host "  |"
+    Write-Host "  | 15. start trackmania                                    | Doesn't work properly"
+    Write-Host "  | 16. start trackmaniaLauncher                            | Doesn't work properly"
 
     $option = Read-Host "`noption"
 
     switch ($option) {
     
-        "0" <# Exit #> { exit }
-         
-        "1" <# Read me please #> { readMePlease }
-         
-        "2" <# source > open #> { Invoke-Item $source_path }
-         
-        "3" <# destination > update #> { destination_update }
-         
-        "4" <# destination > open #> { Invoke-Item $destination_path }
-         
-        "5" <# destination > times.csv > update #> { destination_times_update }
-         
-        "6" <# destination > times.csv > open #> { Invoke-Item "$destination_path\times.csv" }
-         
-        "7" <# deambulatory > open #> { Invoke-Item $destination_deambulatory_scores }
-         
-        "8" <# deambulatory > data.csv > update #> { deambulatory_data_update }
-         
-        "9" <# deambulatory > data.csv > open #> { Invoke-Item "$destination_deambulatory_scores\data.csv" }
+        "0" <# exit #> { exit }
+ 
+        "1" <# read me please #> { readMePlease }
+ 
+        "2" <# open > source #> { Invoke-Item $source_path }
+ 
+        "3" <# open > destination #> { Invoke-Item $destination_path }
+ 
+        "4" <# open > destination > times.csv #> { Invoke-Item "$destination_path\times.csv" }
+ 
+        "5" <# open > deambulatory > scores #> { Invoke-Item $destination_deambulatory_scores }
+ 
+        "6" <# open > deambulatory > scores > data.csv #> { Invoke-Item "$destination_deambulatory_scores\data.csv" }
 
-        "10" <# deambulatory > open online repository #> { Start-Process "https://github.com/deambulatory/scores/" }
+        "7" <# open > deambulatory > online repo #> { Start-Process "https://github.com/deambulatory/scores/" }
 
-        "11" <# deambulatory > open website #> { Start-Process "https://deambulatory.github.io/scores/" }
+        "8" <# open > deambulatory > website #> { Start-Process "https://deambulatory.github.io/scores/" }
+ 
+        "9" <# step 1: dembulatory > scores > pull latest changes #> {}
+ 
+        "10" <# step 2: update - destination#> { destination_update }
+ 
+        "11" <# step 3: update - destination > times.csv #> { destination_times_update }
+
+        "12"<# step 4: update - deambulatory > scores > data.csv #> { deambulatory_data_update }
+
+        "13"<# step 5: deambulatory > scores > push latest changes #> {}
+
+        "14"<# run all steps #> {}
+
+        "15"<# start trackmania #> { Invoke-Item "$trackmania_executable_path\TmForever.exe" }
+
+        "16"<# start trackmania launcher #> { Invoke-Item "$trackmania_executable_path\TmForeverLauncher.exe" }
 
         default { Write-Host "`nInput invalid, what the FUCK is WRONG with you" }
     }
