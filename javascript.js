@@ -25,11 +25,25 @@ function timeToMilliseconds(time) {
 
 // Function to convert milliseconds to time format "mm:ss.ms"
 function millisecondsToTime(milliseconds) {
-    const minutes = Math.floor(milliseconds / 60000);
+    const hours = Math.floor(milliseconds / 3600000);
+    const minutes = Math.floor((milliseconds % 3600000) / 60000);
     const seconds = Math.floor((milliseconds % 60000) / 1000);
     const remainingMilliseconds = milliseconds % 1000;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${remainingMilliseconds.toString().padStart(3, '0').slice(0, 2)}`;
+
+    if (hours > 0) {
+        const formattedHours = hours.toString().padStart(1, '0');
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const formattedSeconds = seconds.toString().padStart(2, '0');
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    } else {
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const formattedSeconds = seconds.toString().padStart(2, '0');
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    }
 }
+
 
 $(document).ready(function () {
     $.ajax({
