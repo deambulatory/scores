@@ -15,11 +15,10 @@ $items = get-childitem $path | Sort-Object name
 
 foreach ($item in $items) {
 
-    $inputString = $item.name    
-    $pattern = "(?<=_)(.*?)(?=-)"
-    $newName = $inputString | Select-String -Pattern $pattern | ForEach-Object { $_.Matches.Value }
-    $newName += ".gbx"
-    Rename-item $item.FullName -NewName $newname
+    
+    $modifiedFileName = $item.name.Split("-")[0]
+    $modifiedFileName += ".gbx"
+    Rename-item $item.FullName -NewName $modifiedFileName
 
 }
 
