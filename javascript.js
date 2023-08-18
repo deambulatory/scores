@@ -122,7 +122,25 @@ $(document).ready(function () {
                             
                             td.classList.add("downloadCellPaul");
                             td.setAttribute("data-paul", $trackData);
-                        }    
+                        }
+
+                        if (j === 3) { // Add the tag to the second column only 
+                            
+                            td.classList.add("downloadCellAidan");
+                            td.setAttribute("data-aidan", $trackData);
+                        }   
+
+                        if (j === 4) { // Add the tag to the second column only 
+                            
+                            td.classList.add("downloadCellDarren");
+                            td.setAttribute("data-darren", $trackData);
+                        }   
+
+                        if (j === 5) { // Add the tag to the second column only 
+                            
+                            td.classList.add("downloadCellLeo");
+                            td.setAttribute("data-leo", $trackData);
+                        }   
  
                         if (pattern.test(data[j])) {
                           
@@ -310,6 +328,89 @@ if (!isMobile) {
         link.click();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellAidan")) {
+            const fileName = clickedElement.getAttribute("data-aidan");
+            const userConfirmation = window.confirm("Do you want to download Aidan's " + clickedElement.textContent + " replay?");
+
+            if (userConfirmation) {
+                downloadAidanFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
+    });
+
+
+    function downloadAidanFile(fileName) {
+
+        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Aidan/' + fileName + '.gbx';
+        const link = document.createElement('a');
+        link.href = fileURL;
+        link.download = fileName;
+        link.click();
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+document.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    // Check if the clicked cell is in the first column (first child of the row)
+    if (clickedElement.classList.contains("downloadCellDarren")) {
+        const fileName = clickedElement.getAttribute("data-darren");
+        const userConfirmation = window.confirm("Do you want to download Darren's " + clickedElement.textContent + " replay?");
+
+        if (userConfirmation) {
+            downloadDarrenFile(fileName);
+        } else {
+            // Handle case when the user cancels the download
+        }
+    }
+});
+
+
+function downloadDarrenFile(fileName) {
+
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Darren/' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
+}
+
+/////////////////////////////////////////////////////////////////////
+
+
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellLeo")) {
+            const fileName = clickedElement.getAttribute("data-leo");
+            const userConfirmation = window.confirm("Do you want to download Leo's " + clickedElement.textContent + " replay?");
+
+            if (userConfirmation) {
+                downloadLeoFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
+    });
+
+
+    function downloadLeoFile(fileName) {
+
+        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/' + fileName + '.gbx';
+        const link = document.createElement('a');
+        link.href = fileURL;
+        link.download = fileName;
+        link.click();
+    }
 
 
 }
