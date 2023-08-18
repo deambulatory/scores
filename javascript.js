@@ -108,13 +108,24 @@ $(document).ready(function () {
 
                 for (var j = 1; j < headers.length; j++) {
                     let td = tr.insertCell();
-
+                      
+            
                     if (data[j] !== "") {
 
                         const pattern = /^[A-Za-z]\d{2}$/;
-
+                        
+                        if (pattern.test(data[j])) { $trackData = data[j]   }
+        
+                        console.log($trackData)
+ 
+                        if (j === 2) { // Add the tag to the second column only 
+                            
+                            td.classList.add("downloadCellPaul");
+                            td.setAttribute("data-paul", $trackData);
+                        }    
+ 
                         if (pattern.test(data[j])) {
-
+                          
                             td.classList.add("downloadCell");
                             td.setAttribute("data-file", data[j]);
 
@@ -271,4 +282,34 @@ if (!isMobile) {
         link.download = fileName;
         link.click();
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellPaul")) {
+            const fileName = clickedElement.getAttribute("data-paul");
+            const userConfirmation = window.confirm("Do you want to download Paul's replay for " + clickedElement.textContent + "?");
+
+            if (userConfirmation) {
+                downloadPaulFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
+    });
+
+
+    function downloadPaulFile(fileName) {
+
+        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Paul/' + fileName + '.gbx';
+        const link = document.createElement('a');
+        link.href = fileURL;
+        link.download = fileName;
+        link.click();
+    }
+
+
+
 }
