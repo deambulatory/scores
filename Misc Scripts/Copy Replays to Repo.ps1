@@ -1,6 +1,6 @@
 ﻿# Copy replays to desktop and rename the files
 #############################################
-cls
+Clear-Host
 $repo = "C:\Users\Paul\Repos\scores\Replays\Paul"
 Write-Host "Local repo for replays configured as '$repo' if this is not right stop the script and change it" -f Yellow
 pause
