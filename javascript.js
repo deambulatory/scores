@@ -18,7 +18,7 @@ function timeToMilliseconds(time) {
 
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds) || isNaN(milliseconds)) {
         throw new Error(`Invalid time format: ${time}. Unable to parse time values.`);
-    } 
+    }
 
     return hours * 3600000 + minutes * 60000 + seconds * 1000 + milliseconds;
 }
@@ -63,7 +63,7 @@ $(document).ready(function () {
         var newTable = "";
         var timesTotal = [];
         var timeCheck = [];
-        
+
         //TODO:
         //load data from nadeoTimes into a 2d array
         //when times are read in, compare to nadeo array
@@ -94,10 +94,10 @@ $(document).ready(function () {
                     let th = tr2.appendChild(document.createElement("th"));
                     th.innerHTML = headers[k];
                 };
-                
+
                 //adds new row to the timesTotal array filled with x amount for x people in the csv
-                timesTotal.push(new Array(headers.length-2).fill(0));
-                timeCheck.push(new Array(headers.length-2).fill(true));
+                timesTotal.push(new Array(headers.length - 2).fill(0));
+                timeCheck.push(new Array(headers.length - 2).fill(true));
             };
 
             if (data.length == headers.length) {
@@ -108,50 +108,50 @@ $(document).ready(function () {
 
                 for (var j = 1; j < headers.length; j++) {
                     let td = tr.insertCell();
-                      
-            
+
+
                     if (data[j] !== "") {
 
                         const pattern = /^[A-Za-z]\d{2}$/;
-                        
-                        if (pattern.test(data[j])) { $trackData = data[j]   }
-        
+
+                        if (pattern.test(data[j])) { $trackData = data[j] }
+
                         //console.log($trackData)
- 
+
                         if (j === 2) { // Add the tag to the second column only 
-                            
+
                             td.classList.add("downloadCellPaul");
                             td.setAttribute("data-paul", $trackData);
                         }
 
                         if (j === 3) { // Add the tag to the second column only 
-                            
+
                             td.classList.add("downloadCellAidan");
                             td.setAttribute("data-aidan", $trackData);
-                        }   
+                        }
 
                         if (j === 4) { // Add the tag to the second column only 
-                            
+
                             td.classList.add("downloadCellDarren");
                             td.setAttribute("data-darren", $trackData);
-                        }   
+                        }
 
                         if (j === 5) { // Add the tag to the second column only 
-                            
+
                             td.classList.add("downloadCellLeo");
                             td.setAttribute("data-leo", $trackData);
-                        }   
- 
+                        }
+
                         if (pattern.test(data[j])) {
-                          
+
                             td.classList.add("downloadCell");
                             td.setAttribute("data-file", data[j]);
 
                         } else {
-                           timesTotal[timesTotal.length-1][j-2] += timeToMilliseconds(data[j]);
+                            timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]);
                         }
 
-                        if(data[j] === worstTime[0]) {
+                        if (data[j] === worstTime[0]) {
                             td.appendChild(document.createTextNode(medals[3] + " "));
                         } else if (medals[sortedTimes.indexOf(data[j])]) {
                             td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
@@ -161,7 +161,7 @@ $(document).ready(function () {
 
                     } else {
                         td.appendChild(document.createTextNode("--:--.--"));
-                        timeCheck[timeCheck.length-1][j-2] = false;
+                        timeCheck[timeCheck.length - 1][j - 2] = false;
                     };
 
                 };
@@ -187,14 +187,14 @@ $(document).ready(function () {
 
         for (k = 1; k < headers.length; k++) {
             let th1 = tr3.appendChild(document.createElement("th"));
-            
-            if(headers[k]) {
+
+            if (headers[k]) {
                 th1.innerHTML = headers[k];
             }
         }
 
         //loop through our timesTotal array, placing them into the table
-        for(x=0; x<timesTotal.length; x++) {
+        for (x = 0; x < timesTotal.length; x++) {
             //add row to table
             let tr = newTable1.insertRow();
             //add track name
@@ -204,7 +204,7 @@ $(document).ready(function () {
 
             td.textContent = tracks[x];
 
-            for(y=0; y<timesTotal[x].length; y++) {
+            for (y = 0; y < timesTotal[x].length; y++) {
                 //add time to table
                 let td1 = tr.insertCell();
 
@@ -241,8 +241,8 @@ function getTopThree(arr) {
 function getTopThreeTotal(arr, checkArr) {
     let sortedTimes2 = [];
 
-    for(z=0; z<arr.length; z++) {
-        if(checkArr[z]===true) {
+    for (z = 0; z < arr.length; z++) {
+        if (checkArr[z] === true) {
             sortedTimes2.push(arr[z]);
         };
     };
@@ -275,34 +275,8 @@ function getWorst(arr) {
     return tafixed
 };
 
+
 if (!isMobile) {
-    // Add event listener to the document, delegating to cells with the "downloadCell" class
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCell") && clickedElement.parentElement.firstChild === clickedElement) {
-            const fileName = clickedElement.getAttribute("data-file");
-            const userConfirmation = window.confirm("Do you want to download the replay for " + clickedElement.textContent + "?");
-
-            if (userConfirmation) {
-                downloadFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    });
-
-    function downloadFile(fileName) {
-
-        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/' + fileName + '.gbx';
-        const link = document.createElement('a');
-        link.href = fileURL;
-        link.download = fileName;
-        link.click();
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-
     document.addEventListener("click", function (event) {
         const clickedElement = event.target;
         // Check if the clicked cell is in the first column (first child of the row)
@@ -316,20 +290,21 @@ if (!isMobile) {
                 // Handle case when the user cancels the download
             }
         }
-    });
+    })
+};
 
 
-    function downloadPaulFile(fileName) {
+function downloadPaulFile(fileName) {
 
-        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Paul/' + fileName + '.gbx';
-        const link = document.createElement('a');
-        link.href = fileURL;
-        link.download = fileName;
-        link.click();
-    }
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Paul/' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
+}
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if (!isMobile) {
     document.addEventListener("click", function (event) {
         const clickedElement = event.target;
         // Check if the clicked cell is in the first column (first child of the row)
@@ -343,36 +318,38 @@ if (!isMobile) {
                 // Handle case when the user cancels the download
             }
         }
-    });
+    })
+};
 
 
-    function downloadAidanFile(fileName) {
+function downloadAidanFile(fileName) {
 
-        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Aidan/' + fileName + '.gbx';
-        const link = document.createElement('a');
-        link.href = fileURL;
-        link.download = fileName;
-        link.click();
-    }
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Aidan/' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+if (!isMobile) {
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellDarren")) {
+            const fileName = clickedElement.getAttribute("data-darren");
+            const userConfirmation = window.confirm("Do you want to download Darren's " + clickedElement.textContent + " replay?");
 
-document.addEventListener("click", function (event) {
-    const clickedElement = event.target;
-    // Check if the clicked cell is in the first column (first child of the row)
-    if (clickedElement.classList.contains("downloadCellDarren")) {
-        const fileName = clickedElement.getAttribute("data-darren");
-        const userConfirmation = window.confirm("Do you want to download Darren's " + clickedElement.textContent + " replay?");
-
-        if (userConfirmation) {
-            downloadDarrenFile(fileName);
-        } else {
-            // Handle case when the user cancels the download
+            if (userConfirmation) {
+                downloadDarrenFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
         }
-    }
-});
+    })
+};
 
 
 function downloadDarrenFile(fileName) {
@@ -386,7 +363,7 @@ function downloadDarrenFile(fileName) {
 
 /////////////////////////////////////////////////////////////////////
 
-
+if (!isMobile) {
     document.addEventListener("click", function (event) {
         const clickedElement = event.target;
         // Check if the clicked cell is in the first column (first child of the row)
@@ -400,17 +377,17 @@ function downloadDarrenFile(fileName) {
                 // Handle case when the user cancels the download
             }
         }
-    });
+    })
+};
 
 
-    function downloadLeoFile(fileName) {
+function downloadLeoFile(fileName) {
 
-        const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/' + fileName + '.gbx';
-        const link = document.createElement('a');
-        link.href = fileURL;
-        link.download = fileName;
-        link.click();
-    }
-
-
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
 }
+
+
