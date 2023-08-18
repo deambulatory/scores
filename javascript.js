@@ -137,12 +137,10 @@ $(document).ready(function () {
 
                         if (pattern.test(data[j])) {
 
-                            td.classList.add("downloadCell");
-                            td.setAttribute("data-file", data[j]);
+                            //td.classList.add("downloadCell");
+                            //td.setAttribute("data-file", data[j]);
 
-                        } else {
-                            timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]);
-                        }
+                        } else {  timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]); }
 
                         if (data[j] === worstTime[0]) {
                             td.appendChild(document.createTextNode(medals[3] + " "));
