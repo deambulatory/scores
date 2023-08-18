@@ -113,31 +113,24 @@ $(document).ready(function () {
                     if (data[j] !== "") {
 
                         const pattern = /^[A-Za-z]\d{2}$/;
-
                         if (pattern.test(data[j])) { $trackData = data[j] }
 
-                        //console.log($trackData)
-
-                        if (j === 2) { // Add the tag to the second column only 
-
+                        if (j === 2) {
                             td.classList.add("downloadCellPaul");
                             td.setAttribute("data-paul", $trackData);
                         }
 
-                        if (j === 3) { // Add the tag to the second column only 
-
+                        if (j === 3) {
                             td.classList.add("downloadCellAidan");
                             td.setAttribute("data-aidan", $trackData);
                         }
 
-                        if (j === 4) { // Add the tag to the second column only 
-
+                        if (j === 4) {
                             td.classList.add("downloadCellDarren");
                             td.setAttribute("data-darren", $trackData);
                         }
 
-                        if (j === 5) { // Add the tag to the second column only 
-
+                        if (j === 5) {
                             td.classList.add("downloadCellLeo");
                             td.setAttribute("data-leo", $trackData);
                         }
@@ -275,6 +268,7 @@ function getWorst(arr) {
     return tafixed
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 if (!isMobile) {
     document.addEventListener("click", function (event) {
@@ -293,7 +287,6 @@ if (!isMobile) {
     })
 };
 
-
 function downloadPaulFile(fileName) {
 
     const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Paul/Paul_' + fileName + '.gbx';
@@ -304,6 +297,7 @@ function downloadPaulFile(fileName) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 if (!isMobile) {
     document.addEventListener("click", function (event) {
         const clickedElement = event.target;
@@ -321,7 +315,6 @@ if (!isMobile) {
     })
 };
 
-
 function downloadAidanFile(fileName) {
 
     const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Aidan/' + fileName + '.gbx';
@@ -331,8 +324,7 @@ function downloadAidanFile(fileName) {
     link.click();
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 if (!isMobile) {
     document.addEventListener("click", function (event) {
@@ -351,7 +343,6 @@ if (!isMobile) {
     })
 };
 
-
 function downloadDarrenFile(fileName) {
 
     const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Darren/' + fileName + '.gbx';
@@ -361,7 +352,7 @@ function downloadDarrenFile(fileName) {
     link.click();
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 if (!isMobile) {
     document.addEventListener("click", function (event) {
@@ -379,7 +370,6 @@ if (!isMobile) {
         }
     })
 };
-
 
 function downloadLeoFile(fileName) {
 
