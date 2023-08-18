@@ -116,7 +116,7 @@ $(document).ready(function () {
                         
                         if (pattern.test(data[j])) { $trackData = data[j]   }
         
-                        console.log($trackData)
+                        //console.log($trackData)
  
                         if (j === 2) { // Add the tag to the second column only 
                             
