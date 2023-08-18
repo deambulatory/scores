@@ -1,9 +1,10 @@
 ﻿# Copy replays to desktop and rename the files
 #############################################
-Clear-Host
-$repo = $PSScriptRoot
-$repo = $repo -replace ("Misc Scripts", "replays")
-write-host "$repo"
+
+$repo = "C:\Users\Paul\Repos\scores\Replays\Paul"
+
+write-host "Current local replay repo is configured as $repo; if this is not right change it in the script" -f red
+pause
 
 if (test-path C:\Users\$env:username\desktop\Replays) { 
 
