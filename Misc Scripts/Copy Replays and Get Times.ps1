@@ -14,7 +14,6 @@ copy-item -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Auto
 $items = get-childitem $path | Sort-Object name
 
 foreach ($item in $items) {
-
     
     $modifiedFileName = $item.name.Split("-")[0]
     $modifiedFileName += ".gbx"
