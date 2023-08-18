@@ -290,7 +290,7 @@ if (!isMobile) {
         // Check if the clicked cell is in the first column (first child of the row)
         if (clickedElement.classList.contains("downloadCellPaul")) {
             const fileName = clickedElement.getAttribute("data-paul");
-            const userConfirmation = window.confirm("Do you want to download Paul's replay for " + clickedElement.textContent + "?");
+            const userConfirmation = window.confirm("Do you want to download Paul's " + clickedElement.textContent + " replay?");
 
             if (userConfirmation) {
                 downloadPaulFile(fileName);
