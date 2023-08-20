@@ -32,6 +32,7 @@ foreach ($item in $items) {
     
     $modifiedFileName = $item.name.Split("-")[0]
     $modifiedFileName += ".gbx"
+    $modifiedFileName = $modifiedFileName -replace ("BAMBUUSCHONK", "Darren")
     Rename-item $item.FullName -NewName $modifiedFileName
 
 }
