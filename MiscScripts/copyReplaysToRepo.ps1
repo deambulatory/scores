@@ -21,7 +21,7 @@ switch ( $env:username )
 }
 
 write-host "Local repo: $repo" -f yellow
-Write-Host "Copying replays to $newReplayPath and renaming" -f yellow
+Write-Host "Copying renamed replays to '$newReplayPath' and renaming" -f yellow
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $newReplayPath -Force
 
