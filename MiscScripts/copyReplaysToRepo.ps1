@@ -1,22 +1,32 @@
-﻿# Copy replays to desktop and rename the files
-#############################################
+﻿# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
+# This script replies on people running it directly from their local repo misc scripts folder
+#############################################################################################################
 
-$repo = "C:\Users\Paul\Repos\scores\Replays\Paul"
+if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
 
-write-host "Current local replay repo is configured as $repo; if this is not right change it in the script" -f red
-pause
+    remove-item "C:\Users\$env:username\AppData\Roaming\Replays" -Force -Recurse | Out-Null
+    new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null
 
-if (test-path C:\Users\$env:username\desktop\Replays) { 
+} else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
 
-    Write-Host "Replay folder on desktop already exists, delete this and run the script again" -f Red
-    pause
-    exit
+$repo = $psscriptroot
+$newReplayPath = "C:\Users\$env:username\AppData\Roaming\Replays" 
 
+switch ($env:username)
+{
+    "Paul" { $repo = $repo -replace ("MiscScripts", "Replays\Paul")   }
+    "Leo"{ $repo = $repo -replace ("MiscScripts", "Replays\Leo")   }
+    "Aidan" { $repo = $repo -replace ("MiscScripts", "Replays\Aidan")   }
+    "BAMBUUS CHONK" { $repo = $repo -replace ("MiscScripts", "Replays\Darren") }
+    
 }
 
-$path = "C:\Users\$env:username\desktop\Replays"
-copy-item -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" -Recurse -Destination $path 
-$items = get-childitem $path | Sort-Object name
+Write-Host "Copying replays to '$newReplayPath' and renaming" -f yellow
+
+get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $newReplayPath -Force
+
+
+$items = get-childitem $newReplayPath | Sort-Object name
 
 foreach ($item in $items) {
     
@@ -28,12 +38,16 @@ foreach ($item in $items) {
 
 ##########################################
 
-$files = Get-ChildItem "C:\Users\$env:username\Desktop\Replays" -ErrorAction SilentlyContinue
+$files = Get-ChildItem $newReplayPath -ErrorAction SilentlyContinue
+
+Write-Host "Copying renamed replays to local repo: '$repo'" -f yellow
 
 foreach($file in $files){
-
-    Copy-item $file.FullName -Destination $repo -Force -Verbose
+    
+    Write-Host "Copying $($file.name)" -f Green
+    Copy-item $file.FullName -Destination $repo -Force
 
 }
 
 pause
+exit
