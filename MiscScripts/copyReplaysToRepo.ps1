@@ -12,7 +12,7 @@ if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") {
 $repo = $psscriptroot
 $newReplayPath = "C:\Users\$env:username\AppData\Roaming\Replays" 
 
-switch ( $env:username )
+switch ($env:username)
 {
     "Paul" { $repo = $repo -replace ("MiscScripts", "Replays\Paul")   }
     "Leo"{ $repo = $repo -replace ("MiscScripts", "Replays\Leo")   }
