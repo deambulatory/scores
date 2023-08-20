@@ -203,12 +203,16 @@ $(document).ready(function () {
                     td1.appendChild(document.createTextNode(medals[sortedTimes.indexOf(timesTotal[x][y])] + " "));
                 };
 
+                
                 timesTotal[x][y] = millisecondsToTime(timesTotal[x][y]);
-                td1.appendChild(document.createTextNode(timesTotal[x][y]));
+                //console.log(timesTotal[x][y]);  
+                if(timesTotal[x][y] == "00:00.00") {  td1.appendChild(document.createTextNode("--:--.--"));   }
+                else {  td1.appendChild(document.createTextNode(timesTotal[x][y]));                 }
+      
             };
         };
 
-        //console.log(timesTotal);
+    
     };
 });
 
@@ -216,7 +220,7 @@ function getTopThree(arr) {
     let sortedTimes = [...arr];
 
     //remove the track name and track type
-    sortedTimes.splice(0, 2);
+    sortedTimes.splice(0, 2); 
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
