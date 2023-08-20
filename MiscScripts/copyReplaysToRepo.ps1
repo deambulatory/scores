@@ -40,7 +40,7 @@ foreach ($item in $items) {
 
 $files = Get-ChildItem $newReplayPath -ErrorAction SilentlyContinue
 
-Write-Host "Copying renamed replays to local repo: $repo" -f yellow
+Write-Host "Copying renamed replays to local repo: '$repo'" -f yellow
 
 foreach($file in $files){
     
