@@ -22,7 +22,7 @@ switch ( $env:username )
 }
 
 write-host "Local repo: $repo" -f yellow
-Write-Host "Copying renamed replays to '$newReplayPath' and renaming" -f yellow
+Write-Host "Copying replays to '$newReplayPath' and renaming" -f yellow
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $newReplayPath -Force
 
@@ -41,7 +41,7 @@ foreach ($item in $items) {
 
 $files = Get-ChildItem $newReplayPath -ErrorAction SilentlyContinue
 
-Write-Host "Copying files to $repo" -f yellow
+Write-Host "Copying renamed replays to $repo" -f yellow
 
 foreach($file in $files){
     
