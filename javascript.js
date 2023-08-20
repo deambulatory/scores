@@ -371,7 +371,7 @@ if (!isMobile) {
 
 function downloadLeoFile(fileName) {
 
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/' + fileName + '.gbx';
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/Leo_' + fileName + '.gbx';
     const link = document.createElement('a');
     link.href = fileURL;
     link.download = fileName;
