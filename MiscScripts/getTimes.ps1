@@ -1,16 +1,19 @@
 ﻿# Copy replays to desktop and rename the files
 #############################################
 
-if (test-path C:\Users\$env:username\desktop\Replays) { 
+if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
 
-    Write-Host "Replay folder on desktop already exists... stopping script" -f Red
-    pause
-    exit
+    remove-item "C:\Users\$env:username\AppData\Roaming\Replays" -Force -Recurse | Out-Null
+    new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null
 
 }
+else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
 
-$path = "C:\Users\$env:username\desktop\Replays"
-copy-item -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" -Recurse -Destination $path 
+
+$path = "C:\Users\$env:username\AppData\Roaming\Replays"
+
+get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\autosaves" -Recurse | Copy-Item -Destination $path -Force
+
 $items = get-childitem $path | Sort-Object name
 
 foreach ($item in $items) {
@@ -23,8 +26,7 @@ foreach ($item in $items) {
 
 ##########################################
 
-$files = Get-ChildItem "C:\Users\$env:username\Desktop\Replays" -ErrorAction SilentlyContinue
-if (test-path C:\Users\$env:username\Desktop\Replays\times.txt) { remove-item C:\Users\$env:username\Desktop\Replays\times.txt }
+$files = Get-ChildItem $path -ErrorAction SilentlyContinue
 
 
 foreach ($file in $files) {
@@ -103,7 +105,7 @@ foreach ($file in $files) {
 
     $track = $file.name -replace ".gbx", ""
 
-    if ($flag) { "$track`t" + "$formattedTime" |  out-file "C:\Users\$env:username\Desktop\Replays\times.txt" -Append }
+    if ($flag) { "$track`t" + "$formattedTime" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append }
 
     else {
             
@@ -119,13 +121,18 @@ foreach ($file in $files) {
     
         $track = $file.name -replace ".gbx", ""
 
-        "$track`t" + "$time" |  out-file "C:\Users\$env:username\Desktop\Replays\times.txt" -Append
+        "$track`t" + "$time" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append
     }
 
 }
 
 # remove blank line at the end of txt file
 
-$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\Desktop\Replays\times.txt")
+$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt")
 $content = $content.Trim()
-[System.IO.File]::WriteAllText("C:\Users\$env:username\Desktop\Replays\times.txt", $content)
+[System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt", $content)
+
+
+Start-Process 'C:\WINDOWS\system32\notepad.exe' "C:\Users\$env:username\AppData\Roaming\Replays\times.txt"
+
+
