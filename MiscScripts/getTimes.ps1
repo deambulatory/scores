@@ -1,12 +1,13 @@
 ﻿# Copy replays to desktop and rename the files
 #############################################
 
-if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
+if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
 
     remove-item "C:\Users\$env:username\AppData\Roaming\Replays" -Force -Recurse | Out-Null
     new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null
 
-} else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
+}
+else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
 
 
 $path = "C:\Users\$env:username\AppData\Roaming\Replays"
