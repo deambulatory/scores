@@ -18,7 +18,7 @@ switch ($env:username)
     "Leo"{ $repo = $repo -replace ("MiscScripts", "Replays\Leo")   }
     "Aidan" { $repo = $repo -replace ("MiscScripts", "Replays\Aidan")   }
     "BAMBUUS CHONK" { $repo = $repo -replace ("MiscScripts", "Replays\Darren") }
-    
+    "Dom" { $repo = $repo -replace ("MiscScripts", "Replays\Dom") }
 }
 
 Write-Host "Copying replays to '$newReplayPath' and renaming" -f yellow
