@@ -1,3 +1,3 @@
 add colour schemes etc to css and add class/ids to cells instead
 add table for number of nadeo, gold, silver, bronze medals
-fix issue with 1hour times on maps
+add table for number of stars, 2nd place, 3rd place, poop
