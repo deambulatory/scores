@@ -9,7 +9,6 @@ if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") {
 }
 else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
 
-
 $path = "C:\Users\$env:username\AppData\Roaming\Replays"
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\autosaves" -Recurse | Copy-Item -Destination $path -Force
@@ -27,7 +26,6 @@ foreach ($item in $items) {
 ##########################################
 
 $files = Get-ChildItem $path -ErrorAction SilentlyContinue
-
 
 foreach ($file in $files) {
     
@@ -100,10 +98,8 @@ foreach ($file in $files) {
         else { $formattedSeconds = "$seconds" + "." }
         
         $formattedTime = $formattedMinutes + $formattedSeconds + $lastTwoNumbers
-
         
     }
-    
 
     $track = $file.name -replace ".gbx", ""
 
@@ -125,7 +121,6 @@ foreach ($file in $files) {
 
         "$track`t" + "$time" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append
     }
-
 }
 
 # remove blank line at the end of txt file
@@ -133,7 +128,6 @@ foreach ($file in $files) {
 $content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt")
 $content = $content.Trim()
 [System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt", $content)
-
 
 Start-Process 'C:\WINDOWS\system32\notepad.exe' "C:\Users\$env:username\AppData\Roaming\Replays\times.txt"
 
