@@ -380,7 +380,7 @@ if (!isMobile) {
 
 function downloadDomFile(fileName) {
 
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Dom/Dom_' + fileName + '.gbx';
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Dom/dom_' + fileName + '.gbx';
     const link = document.createElement('a');
     link.href = fileURL;
     link.download = fileName;
