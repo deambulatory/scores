@@ -435,7 +435,7 @@ Function getTrackTime($filePath) {
             $seconds = $firstTwoNumbers % 60
             $formattedMinutes = "0" + "$minutes" + ":"      
 
-            if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+            if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
             else { $formattedSeconds = "$seconds" + "." }
 
         }
@@ -455,15 +455,12 @@ Function getTrackTime($filePath) {
 
         $formattedMinutes = "0" + "$minutes" + ":"     
 
-        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
         else { $formattedSeconds = "$seconds" + "." }
         
         $formattedTime = $formattedMinutes + $formattedSeconds + $lastTwoNumbers
     }
     
-
-    $track = $filePath -replace ".gbx", ""
-
     if ($flag) { return $formattedTime }
 
     else {
@@ -477,8 +474,6 @@ Function getTrackTime($filePath) {
         }
     
         if ($time.ToString().Length -eq 5) { $time = "00:" + $time }
-    
-        $track = $filePath -replace ".gbx", ""
 
         return $time
     }
