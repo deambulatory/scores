@@ -76,7 +76,7 @@ foreach ($file in $files) {
             $seconds = $firstTwoNumbers % 60
             $formattedMinutes = "0" + "$minutes" + ":"      
 
-            if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+            if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
             else { $formattedSeconds = "$seconds" + "." }
 
         }
@@ -96,10 +96,12 @@ foreach ($file in $files) {
 
         $formattedMinutes = "0" + "$minutes" + ":"     
 
-        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
         else { $formattedSeconds = "$seconds" + "." }
         
         $formattedTime = $formattedMinutes + $formattedSeconds + $lastTwoNumbers
+
+        
     }
     
 
