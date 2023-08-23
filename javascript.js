@@ -135,6 +135,11 @@ $(document).ready(function () {
                             td.setAttribute("data-leo", $trackData);
                         }
 
+                        if (j === 6) {
+                            td.classList.add("downloadCellDom");
+                            td.setAttribute("data-dom", $trackData);
+                        }
+
                         if (pattern.test(data[j])) {
 
                             //td.classList.add("downloadCell");
@@ -347,7 +352,35 @@ if (!isMobile) {
 
 function downloadDarrenFile(fileName) {
 
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Darren/BAMBUUS_CHONK_' + fileName + '.gbx';
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Darren/BAMBUUSCHONK_' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+if (!isMobile) {
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellDom")) {
+            const fileName = clickedElement.getAttribute("data-dom");
+            const userConfirmation = window.confirm("Do you want to download Dom's " + clickedElement.textContent + " replay?");
+
+            if (userConfirmation) {
+                downloadDomFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
+    })
+};
+
+function downloadDomFile(fileName) {
+
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Dom/dom_' + fileName + '.gbx';
     const link = document.createElement('a');
     link.href = fileURL;
     link.download = fileName;
@@ -381,5 +414,3 @@ function downloadLeoFile(fileName) {
     link.download = fileName;
     link.click();
 }
-
-

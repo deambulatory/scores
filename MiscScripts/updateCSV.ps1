@@ -1,4 +1,6 @@
-﻿# Copy replays to desktop and rename the files
+﻿#####################################################
+# Updated get-time code
+# Copy replays to %appdata% and rename the files
 #############################################
 
 if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
@@ -13,14 +15,14 @@ $path = "C:\Users\$env:username\AppData\Roaming\Replays"
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\autosaves" -Recurse | Copy-Item -Destination $path -Force
 
-$items = get-childitem $path | Sort-Object name
+$items = Get-ChildItem $path | Sort-Object Name
 
 foreach ($item in $items) {
-    
-    $modifiedFileName = $item.name.Split("-")[0]
-    $modifiedFileName += ".gbx"
-    Rename-item $item.FullName -NewName $modifiedFileName
-
+    $pattern = ".*_([A-E]\d+)-.*"
+    if ($item.Name -match $pattern) {
+        $modifiedFileName = $matches[1] + ".gbx"
+        Rename-Item $item.FullName -NewName $modifiedFileName
+    }
 }
 
 ##########################################
@@ -103,7 +105,7 @@ foreach ($file in $files) {
 
     $track = $file.name -replace ".gbx", ""
 
-    if ($flag) { "$track`t" + "$formattedTime" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append }
+    if ($flag) { "$track," + "$formattedTime" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append }
 
     else {
             
@@ -119,7 +121,7 @@ foreach ($file in $files) {
     
         $track = $file.name -replace ".gbx", ""
 
-        "$track`t" + "$time" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append
+        "$track," + "$time" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append
     }
 }
 
@@ -129,6 +131,58 @@ $content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming
 $content = $content.Trim()
 [System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt", $content)
 
-Start-Process 'C:\WINDOWS\system32\notepad.exe' "C:\Users\$env:username\AppData\Roaming\Replays\times.txt"
+#########################
 
+$repo = $psscriptroot
+$pathCSV = $repo -replace "MiscScripts", "data.csv"
+$csv = import-csv $pathCSV
+$times = import-csv "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Header 'Track', 'Time'
+$user = ""
+$export = "C:\Users\$env:username\AppData\Roaming\export.csv"
+
+    switch ($env:username)
+    {
+        "Paul" { $user = "Paul"  }
+        "Leo"{  $user = "Leo"  }
+        "Aidan" { $user = "Aidan"   }
+        "BAMBUUS CHONK" { $user = "Darren" }
+        "Dom" { $user = "Dom"}
+    }
+    
+
+foreach($line in $csv){
+
+   
+    foreach($time in $times){
+    
+        if($line.Track -eq $time.Track){
+
+            
+            if($line.$user -eq $time.Time) {  }
+            else {                 
+
+                Write-Host "Updating $($line.Track) from $($line.$user) to $($time.Time) " -f green
+
+                $line.$user = $time.Time
+                            
+             }
+
+        }       
+
+    }
+
+     $line | export-csv "C:\Users\$env:username\AppData\Roaming\export.csv" -append -nti
+
+}
+
+$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming\export.csv")
+$content = $content.Trim() 
+$content = $content -replace "`"", ""
+[System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\export.csv", $content)
+
+Remove-Item $pathCSV -Force
+Copy-Item $export -Destination $pathCSV -Force
+Remove-Item $export -Force
+
+pause
 
