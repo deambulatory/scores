@@ -1,7 +1,6 @@
 ﻿#####################################################
 # Updated get-time code
-
-# Copy replays to desktop and rename the files
+# Copy replays to %appdata% and rename the files
 #############################################
 
 if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
@@ -132,19 +131,13 @@ $content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming
 $content = $content.Trim()
 [System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt", $content)
 
-
 #########################
-
-
-
-
 
 $repo = $psscriptroot
 $pathCSV = $repo -replace "MiscScripts", "data.csv"
 $csv = import-csv $pathCSV
 $times = import-csv "C:\Users\Paul\AppData\Roaming\Replays\times.txt" -Header 'Track', 'Time'
 $user = ""
-
 
     switch ($env:username)
     {
@@ -160,14 +153,12 @@ foreach($line in $csv){
 
    
     foreach($time in $times){
-
-
+    
         if($line.Track -eq $time.Track){
 
 
             if($line.$user -eq $time.Time) { write-host "$($line.Track) matches" -f Green }
-            else { 
-                
+            else {                 
 
                 Write-Host "$($line.Track) doesn't match" -f Red
                 Write-Host "$($line.$user) on CSV" -f Yellow
