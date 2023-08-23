@@ -389,3 +389,28 @@ function downloadDomFile(fileName) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+if (!isMobile) {
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        // Check if the clicked cell is in the first column (first child of the row)
+        if (clickedElement.classList.contains("downloadCellLeo")) {
+            const fileName = clickedElement.getAttribute("data-leo");
+            const userConfirmation = window.confirm("Do you want to download Leo's " + clickedElement.textContent + " replay?");
+
+            if (userConfirmation) {
+                downloadLeoFile(fileName);
+            } else {
+                // Handle case when the user cancels the download
+            }
+        }
+    })
+};
+
+function downloadLeoFile(fileName) {
+
+    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/Leo_' + fileName + '.gbx';
+    const link = document.createElement('a');
+    link.href = fileURL;
+    link.download = fileName;
+    link.click();
+}
