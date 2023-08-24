@@ -415,24 +415,8 @@ function downloadLeoFile(fileName) {
     link.click();
 }
 
-
-function showLandscapeAlert() {
-    alertBox = alert("Please page is best viewed in landscape mode.");
-}
-
-window.addEventListener('orientationchange', function () {
-    if (window.innerWidth > window.innerHeight) {
-        // Landscape mode
-        if (alertBox) {
-            alertBox.close(); // Close the alert
-        }
-    } else {
-        showLandscapeAlert();
-    }
-});
-
 window.onload = function () {
     if (isMobile && window.innerWidth < window.innerHeight) {
-        showLandscapeAlert();
+        alertBox = alert("This page is best viewed in landscape mode.");
     }
 }
