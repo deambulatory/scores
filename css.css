@@ -30,6 +30,11 @@ body {
         background-position: center;
     }
 
+    table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
 }
 
 @media screen and (max-width: 360px) {
@@ -40,11 +45,13 @@ body {
         background-position: center;
     }
 
-    th,
-    td {
 
-        font-size: 12px
-    }
+    table {
+        width: 100%;
+        overflow-x: auto;
+   }
+
+ 
 }
 
 tr {
