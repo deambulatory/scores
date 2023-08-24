@@ -1,6 +1,6 @@
 table {
     border-collapse: collapse;
-    width: 500px;
+    width: 600px;
     margin: 0 auto;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -12,6 +12,8 @@ td {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
+
+
 }
 
 body {
@@ -25,25 +27,22 @@ body {
 @media screen and (max-width: 768px) {
     body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_medium.jpg');
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
     }
+
 
 }
 
 @media screen and (max-width: 360px) {
     body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_small.jpg');
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
     }
 
-    th,
-    td {
-
-        font-size: 12px
+    /* Force landscape orientation */
+    @media all and (orientation: portrait) {
+        body {
+            display: none;
+            /* Hide the content in portrait mode */
+        }
     }
 }
 
@@ -58,16 +57,20 @@ tr:hover {
 .White {
     background-color: white;
 }
+
 .Black {
     background-color: black;
     color: white;
 }
+
 .Red {
     background-color: red;
 }
+
 .Blue {
     background-color: #0096FF;
 }
+
 .Green {
     background-color: #32CD32;
 }
