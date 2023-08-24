@@ -45,18 +45,6 @@ function millisecondsToTime(milliseconds) {
 }
 
 
-window.onload = function() {
-    if (isMobile) {
-        if (window.innerWidth < window.innerHeight) {
-            // Rotate the page to landscape using CSS
-            document.body.style.transform = "rotate(-90deg)";
-            document.body.style.transformOrigin = "left top";
-            document.body.style.width = "100vh"; // Adjust body width to fill screen
-            document.body.style.height = "100vw"; // Adjust body height to fill screen
-        }
-    }
-};
-
 $(document).ready(function () {
     $.ajax({
         type: "GET",
@@ -426,3 +414,17 @@ function downloadLeoFile(fileName) {
     link.download = fileName;
     link.click();
 }
+
+
+window.onload = function() {
+    if (isMobile && window.innerWidth < window.innerHeight) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('wrapper');
+
+        while (document.body.firstChild) {
+            wrapper.appendChild(document.body.firstChild);
+        }
+
+        document.body.appendChild(wrapper);
+    }
+};
