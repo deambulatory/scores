@@ -435,3 +435,4 @@ window.onload = function () {
     if (isMobile && window.innerWidth < window.innerHeight) {
         showLandscapeAlert();
     }
+}
