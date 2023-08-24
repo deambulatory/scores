@@ -39,7 +39,7 @@ body {
     body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_small.jpg');
         background-attachment: fixed;
-        background-size: cover;
+        background-size: 100vw 100vh;
         background-position: center;
     }
 
