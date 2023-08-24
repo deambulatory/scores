@@ -187,6 +187,7 @@ $content = $content.Trim()
 
 #########################
 
+$count = 0
 $repo = $psscriptroot
 $pathCSV = $repo -replace "MiscScripts", "data.csv"
 $csv = import-csv $pathCSV
@@ -216,7 +217,7 @@ foreach($line in $csv){
             else {                 
 
                 Write-Host "Updating $($line.Track) from $($line.$user) to $($time.Time) " -f green
-
+                $count ++
                 $line.$user = $time.Time
                             
              }
@@ -237,6 +238,8 @@ $content = $content -replace "`"", ""
 Remove-Item $pathCSV -Force
 Copy-Item $export -Destination $pathCSV -Force
 Remove-Item $export -Force
+
+Write-host "$count times updated in the CSV file" -f Green
 
 pause
 
