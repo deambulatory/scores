@@ -37,13 +37,6 @@ body {
         background-image: url('https://deambulatory.github.io/scores/Images/bg_small.jpg');
     }
 
-    /* Force landscape orientation */
-    @media all and (orientation: portrait) {
-        body {
-            display: none;
-            /* Hide the content in portrait mode */
-        }
-    }
 }
 
 tr {

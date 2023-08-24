@@ -414,3 +414,9 @@ function downloadLeoFile(fileName) {
     link.download = fileName;
     link.click();
 }
+
+window.onload = function () {
+    if (isMobile && window.innerWidth < window.innerHeight) {
+        alertBox = alert("This page is best viewed in landscape mode.");
+    }
+}
