@@ -53,7 +53,7 @@ foreach ($file in $files) {
         $formattedMinutes = "0" + "$minutes" + ":" 
         $seconds = $firstFourNumbers % 60
         
-        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
         else { $formattedSeconds = "$seconds" + "." }
 
         $formattedHour = "$hour" + ":"
