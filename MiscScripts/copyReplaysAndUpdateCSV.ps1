@@ -21,7 +21,6 @@ switch ($env:username)
     "Dom" { $repo = $repo -replace ("MiscScripts", "Replays\Dom") }
 }
 
-Write-Host "Copying replays to repo" -f green
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $newReplayPath -Force
 
@@ -49,13 +48,13 @@ foreach($file in $files){
 
 }
 
+Write-Host "Copied replays to repo" -f green
 
 #####################################################
 # Updated get-time code
 # Copy replays to %appdata% and rename the files
 #############################################
 
-write-host "Checking for times to update" -f Green
 
 if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
 
@@ -239,7 +238,7 @@ Remove-Item $pathCSV -Force
 Copy-Item $export -Destination $pathCSV -Force
 Remove-Item $export -Force
 
-Write-host "$count times updated in the CSV file" -f Green
+Write-host "$count time(s) updated in the CSV file" -f Green
 
 pause
 
