@@ -46,16 +46,13 @@ function millisecondsToTime(milliseconds) {
 
 
 window.onload = function() {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    if (isMobile) {
         if (window.innerWidth < window.innerHeight) {
-            alert("Please rotate your device to landscape mode for the best experience.");
-            setTimeout(function() {
-                if (window.innerWidth < window.innerHeight) {
-                    // Rotate the page to landscape using CSS
-                    document.body.style.transform = "rotate(-90deg)";
-                    document.body.style.transformOrigin = "left top";
-                }
-            }, 1000); // Wait for any orientation changes to settle
+            // Rotate the page to landscape using CSS
+            document.body.style.transform = "rotate(-90deg)";
+            document.body.style.transformOrigin = "left top";
+            document.body.style.width = "100vh"; // Adjust body width to fill screen
+            document.body.style.height = "100vw"; // Adjust body height to fill screen
         }
     }
 };
