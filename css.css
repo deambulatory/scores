@@ -67,13 +67,3 @@ tr:hover {
 .Green {
     background-color: #32CD32;
 }
-
-.wrapper {
-    width: 100vh;
-    height: 100vw;
-    transform-origin: top left;
-    transform: rotate(90deg) translateX(-100%);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
