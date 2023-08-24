@@ -416,27 +416,22 @@ function downloadLeoFile(fileName) {
 }
 
 
-function showAlert(message, callback) {
-    alert(message);
-    if (callback && typeof callback === 'function') {
-        callback();
-    }
+function showLandscapeAlert() {
+    alertBox = alert("Please page is best viewed in landscape mode.");
 }
 
-function checkOrientationAndShowAlert() {
-    if (isMobile && window.innerWidth < window.innerHeight) {
-        showAlert("Please rotate to landscape mode to view the table.", function () {
-            window.addEventListener('orientationchange', function () {
-                if (window.innerWidth > window.innerHeight) {
-                    window.removeEventListener('orientationchange', arguments.callee);
-                    document.getElementById("landscape-alert").style.display = "none";
-                }
-            });
-        });
+window.addEventListener('orientationchange', function () {
+    if (window.innerWidth > window.innerHeight) {
+        // Landscape mode
+        if (alertBox) {
+            alertBox.close(); // Close the alert
+        }
+    } else {
+        showLandscapeAlert();
     }
-}
+});
 
 window.onload = function () {
-    checkOrientationAndShowAlert();
-
-}
+    if (isMobile && window.innerWidth < window.innerHeight) {
+        showLandscapeAlert();
+    }
