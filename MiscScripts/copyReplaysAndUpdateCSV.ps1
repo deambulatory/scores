@@ -67,10 +67,7 @@ $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
 new-item $targetReplayFolder -ItemType directory -Force | Out-Null
 
 foreach($file in $files){
-    $file.FullName
-    
     Copy-item $file.FullName -Destination "$targetReplayFolder\$($file.Name)" -Force
-
 }
 
 #####################################################
