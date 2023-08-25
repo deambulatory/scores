@@ -1,21 +1,19 @@
 ﻿$ISE = "" + $psISE.CurrentFile.FullPath
 
 if($ISE) { 
-
     $path = $ISE.Replace('\copyReplaysAndUpdateCSV.ps1', "") 
     cd $path
-
 }
 
 Write-Host "Getting latest repo"
-git pull
+# git pull
 
-if($LASTEXITCODE){
+# if($LASTEXITCODE){
 
-    Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
-    pause
-    exit 1
-}
+#     Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
+#     pause
+#     exit 1
+# }
 
 # Add your computer username and player name here
 $usernamePlayerNameMap = @{
@@ -74,7 +72,6 @@ foreach($file in $files){
     Copy-item $file.FullName -Destination "$targetReplayFolder\$($file.Name)" -Force
 
 }
-exit 0
 
 #####################################################
 # Updated get-time code
@@ -105,7 +102,7 @@ foreach ($item in $items) {
 ##########################################
 
 $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
-
+"Hello"
 foreach ($file in $files) {
     
     $flag = $false
@@ -180,6 +177,7 @@ foreach ($file in $files) {
         
     }
 
+    Write-Host "Current player name: $currentPlayerName"
     $track = $file.name.Replace(".gbx", "").Replace("$($currentPlayerName)_", "")
 
     if ($flag) { "$track," + "$formattedTime" |  out-file $tempCsvFilePath -Append }
@@ -220,12 +218,12 @@ foreach($line in $csv){
     foreach($time in $times){
 
         if($line.Track -eq $time.Track){
-            if($line.$playerName -eq $time.Time) {  }
+            if($line.$currentPlayerName -eq $time.Time) {  }
             else {                 
 
-                Write-Host "Updating $($line.Track) from $($line.$playerName) to $($time.Time) " -f green
+                Write-Host "Updating $($line.Track) from $($line.$currentPlayerName) to $($time.Time) " -f green
                 $count ++
-                $line.$playerName = $time.Time
+                $line.$currentPlayerName = $time.Time
              }
         }
     }
