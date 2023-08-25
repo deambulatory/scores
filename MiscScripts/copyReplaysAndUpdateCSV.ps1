@@ -5,15 +5,15 @@ if($ISE) {
     Set-Location $path
 }
 
-# Write-Host "Getting latest repo"
-# git pull
+Write-Host "Getting latest repo"
+git pull
 
-# if($LASTEXITCODE){
+if($LASTEXITCODE){
 
-#     Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
-#     pause
-#     exit 1
-# }
+    Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
+    pause
+    exit 1
+}
 
 # Add your computer username and player name here
 $usernamePlayerNameMap = @{
