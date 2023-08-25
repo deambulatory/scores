@@ -1,9 +1,6 @@
 ﻿Write-Host "Getting latest repo"
 git pull
 
-Write-Host "Getting latest repo"
-git pull
-
 if($LASTEXITCODE){
 
 
@@ -13,10 +10,6 @@ if($LASTEXITCODE){
     
 }
 
-
-# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
-# This script replies on people running it directly from their local repo misc scripts folder
-#############################################################################################################
 
 if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
 
