@@ -134,7 +134,7 @@ $content = $content.Trim()
 #########################
 
 $repo = $psscriptroot
-$pathCSV = $repo -replace "MiscScripts", "data.csv"
+$pathCSV = $repo -replace "MiscScripts\\Archive", "data.csv"
 $csv = import-csv $pathCSV
 $times = import-csv "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Header 'Track', 'Time'
 $user = ""

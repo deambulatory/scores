@@ -53,7 +53,7 @@ foreach ($file in $files) {
         $formattedMinutes = "0" + "$minutes" + ":" 
         $seconds = $firstFourNumbers % 60
         
-        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + ":" }
+        if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
         else { $formattedSeconds = "$seconds" + "." }
 
         $formattedHour = "$hour" + ":"
@@ -134,7 +134,7 @@ $content = $content.Trim()
 #########################
 
 $repo = $psscriptroot
-$pathCSV = $repo -replace "MiscScripts", "data.csv"
+$pathCSV = $repo -replace "MiscScripts\\Archive", "data.csv"
 $csv = import-csv $pathCSV
 $times = import-csv "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Header 'Track', 'Time'
 $user = ""
