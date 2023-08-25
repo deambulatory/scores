@@ -2,7 +2,7 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const medals = ['⭐', '🥈', '🥉', '💩'];
 const tracks = ["White", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
-const NUMBER_OF_STATIC_COLUMN_CELLS = 2; // Currently Track Type and Track.
+const NUMBER_OF_STATIC_CELLS = 2; // Currently Track Type and Track.
 
 function timeToMilliseconds(time) {
     const timeRegex = /^((\d{1,2}):)?(\d{2}):(\d{2})\.(\d{2,3})$/;
@@ -35,12 +35,12 @@ function millisecondsToTime(milliseconds) {
         const formattedHours = hours.toString().padStart(1, '0');
         const formattedMinutes = minutes.toString().padStart(2, '0');
         const formattedSeconds = seconds.toString().padStart(2, '0');
-        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_CELLS);
         return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
     } else {
         const formattedMinutes = minutes.toString().padStart(2, '0');
         const formattedSeconds = seconds.toString().padStart(2, '0');
-        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_CELLS);
         return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
     }
 }
@@ -100,8 +100,8 @@ $(document).ready(function () {
                 };
 
                 //adds new row to the timesTotal array filled with x amount for x people in the csv
-                timesTotal.push(new Array(headers.length - NUMBER_OF_STATIC_COLUMN_CELLS).fill(0));
-                timeCheck.push(new Array(headers.length - NUMBER_OF_STATIC_COLUMN_CELLS).fill(true));
+                timesTotal.push(new Array(headers.length - NUMBER_OF_STATIC_CELLS).fill(0));
+                timeCheck.push(new Array(headers.length - NUMBER_OF_STATIC_CELLS).fill(true));
             };
 
             if (data.length == headers.length) {
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
                     if(data[j] == null || data[j] === ""){
                         td.appendChild(document.createTextNode("--:--.--"));
-                        timeCheck[timeCheck.length - 1][j - NUMBER_OF_STATIC_COLUMN_CELLS] = false;
+                        timeCheck[timeCheck.length - 1][j - NUMBER_OF_STATIC_CELLS] = false;
                         continue;
                     }
 
@@ -124,8 +124,8 @@ $(document).ready(function () {
 
 
 
-                    if( j >= NUMBER_OF_STATIC_COLUMN_CELLS){
-                        timesTotal[timesTotal.length - 1][j - NUMBER_OF_STATIC_COLUMN_CELLS] += timeToMilliseconds(data[j]);
+                    if( j >= NUMBER_OF_STATIC_CELLS){
+                        timesTotal[timesTotal.length - 1][j - NUMBER_OF_STATIC_CELLS] += timeToMilliseconds(data[j]);
 
                         if (!isMobile) {
                             td.onclick = () => {
@@ -208,7 +208,7 @@ function getTopThree(arr) {
     let sortedTimes = [...arr];
 
     //remove the track name and track type
-    sortedTimes.splice(0, NUMBER_OF_STATIC_COLUMN_CELLS); 
+    sortedTimes.splice(0, NUMBER_OF_STATIC_CELLS); 
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
@@ -245,7 +245,7 @@ function getWorst(arr) {
     let sortedTimes = [...arr];
 
     //remove the track name and track type
-    sortedTimes.splice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
+    sortedTimes.splice(0, NUMBER_OF_STATIC_CELLS);
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
