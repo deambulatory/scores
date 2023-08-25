@@ -35,12 +35,12 @@ function millisecondsToTime(milliseconds) {
         const formattedHours = hours.toString().padStart(1, '0');
         const formattedMinutes = minutes.toString().padStart(2, '0');
         const formattedSeconds = seconds.toString().padStart(2, '0');
-        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
         return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
     } else {
         const formattedMinutes = minutes.toString().padStart(2, '0');
         const formattedSeconds = seconds.toString().padStart(2, '0');
-        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, 2);
+        const formattedMilliseconds = remainingMilliseconds.toString().padStart(3, '0').slice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
         return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
     }
 }
@@ -75,7 +75,6 @@ $(document).ready(function () {
         //create a new table with players in cols, tracks in rows, medal type in cell
         //add up total and display, total nadeo, gold, silver, bronze
         //260 medals in total, 4 per 65 maps
-        debugger;
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
 
@@ -101,8 +100,8 @@ $(document).ready(function () {
                 };
 
                 //adds new row to the timesTotal array filled with x amount for x people in the csv
-                timesTotal.push(new Array(headers.length - 2).fill(0));
-                timeCheck.push(new Array(headers.length - 2).fill(true));
+                timesTotal.push(new Array(headers.length - NUMBER_OF_STATIC_COLUMN_CELLS).fill(0));
+                timeCheck.push(new Array(headers.length - NUMBER_OF_STATIC_COLUMN_CELLS).fill(true));
             };
 
             if (data.length == headers.length) {
@@ -116,23 +115,25 @@ $(document).ready(function () {
 
                     if(data[j] == null || data[j] === ""){
                         td.appendChild(document.createTextNode("--:--.--"));
-                        timeCheck[timeCheck.length - 1][j - 2] = false;
+                        timeCheck[timeCheck.length - 1][j - NUMBER_OF_STATIC_COLUMN_CELLS] = false;
                         continue;
                     }
 
                     let trackName = data[1];
                     let playerName = playerRowIndexMap[j];
 
-                    if (!isMobile) {
-                        td.onclick = () => {
-                            if (window.confirm(`Do you want to download ${playerName}'s ${trackName} replay?`)){
-                                downloadReplayFile(playerName, trackName);
-                            }
-                        };
-                    };
+
 
                     if( j >= NUMBER_OF_STATIC_COLUMN_CELLS){
-                        timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]);
+                        timesTotal[timesTotal.length - 1][j - NUMBER_OF_STATIC_COLUMN_CELLS] += timeToMilliseconds(data[j]);
+
+                        if (!isMobile) {
+                            td.onclick = () => {
+                                if (window.confirm(`Do you want to download ${playerName}'s ${trackName} replay?`)){
+                                    downloadReplayFile(playerName, trackName);
+                                }
+                            };
+                        };
                     }
 
                     if (data[j] === worstTime[0]) {
@@ -207,7 +208,7 @@ function getTopThree(arr) {
     let sortedTimes = [...arr];
 
     //remove the track name and track type
-    sortedTimes.splice(0, 2); 
+    sortedTimes.splice(0, NUMBER_OF_STATIC_COLUMN_CELLS); 
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
@@ -244,7 +245,7 @@ function getWorst(arr) {
     let sortedTimes = [...arr];
 
     //remove the track name and track type
-    sortedTimes.splice(0, 2);
+    sortedTimes.splice(0, NUMBER_OF_STATIC_COLUMN_CELLS);
 
     //remove blanks
     sortedTimes = sortedTimes.filter(n => n);
