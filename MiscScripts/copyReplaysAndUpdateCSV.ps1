@@ -1,4 +1,7 @@
-﻿# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
+﻿Write-Host "Getting latest repo"
+git pull
+
+# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
 # This script replies on people running it directly from their local repo misc scripts folder
 #############################################################################################################
 
@@ -239,6 +242,11 @@ Copy-Item $export -Destination $pathCSV -Force
 Remove-Item $export -Force
 
 Write-host "$count time(s) updated in the CSV file" -f Green
+
+Write-Host "Committing and pushing to remote repo"
+
+git commit -m "Update CSV and replays" -a
+git push
 
 pause
 
