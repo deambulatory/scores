@@ -2,6 +2,7 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const medals = ['⭐', '🥈', '🥉', '💩'];
 const tracks = ["White", "Green", "Blue", "Red", "Black"]; // hacky track totals, need to convert places used dynamically instead (if we add more tracks or games etc)
+const NUMBER_OF_STATIC_COLUMN_CELLS = 2; // Currently Track Type and Track.
 
 function timeToMilliseconds(time) {
     const timeRegex = /^((\d{1,2}):)?(\d{2}):(\d{2})\.(\d{2,3})$/;
@@ -63,6 +64,9 @@ $(document).ready(function () {
         var newTable = "";
         var timesTotal = [];
         var timeCheck = [];
+        // Create a map of cell index to player name
+        var playerRowIndexMap = {};
+        allTextLines[0].split(',').slice(2).forEach((playerName, idx) => playerRowIndexMap[idx+2] = playerName);
 
         //TODO:
         //load data from nadeoTimes into a 2d array
@@ -71,6 +75,7 @@ $(document).ready(function () {
         //create a new table with players in cols, tracks in rows, medal type in cell
         //add up total and display, total nadeo, gold, silver, bronze
         //260 medals in total, 4 per 65 maps
+        debugger;
         for (var i = 1; i < allTextLines.length; i++) {
             var data = allTextLines[i].split(',');
 
@@ -109,57 +114,34 @@ $(document).ready(function () {
                 for (var j = 1; j < headers.length; j++) {
                     let td = tr.insertCell();
 
-
-                    if (data[j] !== "") {
-
-                        const pattern = /^[A-Za-z]\d{2}$/;
-                        if (pattern.test(data[j])) { $trackData = data[j] }
-
-                        if (j === 2) {
-                            td.classList.add("downloadCellPaul");
-                            td.setAttribute("data-paul", $trackData);
-                        }
-
-                        if (j === 3) {
-                            td.classList.add("downloadCellAidan");
-                            td.setAttribute("data-aidan", $trackData);
-                        }
-
-                        if (j === 4) {
-                            td.classList.add("downloadCellDarren");
-                            td.setAttribute("data-darren", $trackData);
-                        }
-
-                        if (j === 5) {
-                            td.classList.add("downloadCellLeo");
-                            td.setAttribute("data-leo", $trackData);
-                        }
-
-                        if (j === 6) {
-                            td.classList.add("downloadCellDom");
-                            td.setAttribute("data-dom", $trackData);
-                        }
-
-                        if (pattern.test(data[j])) {
-
-                            //td.classList.add("downloadCell");
-                            //td.setAttribute("data-file", data[j]);
-
-                        } else {  timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]); }
-
-                        if (data[j] === worstTime[0]) {
-                            td.appendChild(document.createTextNode(medals[3] + " "));
-                        } else if (medals[sortedTimes.indexOf(data[j])]) {
-                            td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
-                        };
-
-                        td.appendChild(document.createTextNode(data[j]));
-
-                    } else {
+                    if(data[j] == null || data[j] === ""){
                         td.appendChild(document.createTextNode("--:--.--"));
                         timeCheck[timeCheck.length - 1][j - 2] = false;
+                        continue;
+                    }
+
+                    let trackName = data[1];
+                    let playerName = playerRowIndexMap[j];
+
+                    if (!isMobile) {
+                        td.onclick = () => {
+                            if (window.confirm(`Do you want to download ${playerName}'s ${trackName} replay?`)){
+                                downloadReplayFile(playerName, trackName);
+                            }
+                        };
                     };
 
+                    if( j >= NUMBER_OF_STATIC_COLUMN_CELLS){
+                        timesTotal[timesTotal.length - 1][j - 2] += timeToMilliseconds(data[j]);
+                    }
+
+                    if (data[j] === worstTime[0]) {
+                        td.appendChild(document.createTextNode(medals[3] + " "));
+                    } else if (medals[sortedTimes.indexOf(data[j])]) {
+                        td.appendChild(document.createTextNode(medals[sortedTimes.indexOf(data[j])] + " "));
+                    };
+
+                    td.appendChild(document.createTextNode(data[j]));
                 };
             };
 
@@ -275,143 +257,11 @@ function getWorst(arr) {
     return tafixed
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if (!isMobile) {
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCellPaul")) {
-            const fileName = clickedElement.getAttribute("data-paul");
-            const userConfirmation = window.confirm("Do you want to download Paul's " + clickedElement.textContent + " replay?");
-
-            if (userConfirmation) {
-                downloadPaulFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    })
-};
-
-function downloadPaulFile(fileName) {
-
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Paul/Paul_' + fileName + '.gbx';
+function downloadReplayFile(playerName, trackName){
+    const fileURL = `https://github.com/deambulatory/scores/raw/main/Replays/${playerName}/${playerName}_${trackName}.gbx`;
     const link = document.createElement('a');
     link.href = fileURL;
-    link.download = fileName;
-    link.click();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if (!isMobile) {
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCellAidan")) {
-            const fileName = clickedElement.getAttribute("data-aidan");
-            const userConfirmation = window.confirm("Do you want to download Aidan's " + clickedElement.textContent + " replay?");
-
-            if (userConfirmation) {
-                downloadAidanFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    })
-};
-
-function downloadAidanFile(fileName) {
-
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Aidan/Aidan_' + fileName + '.gbx';
-    const link = document.createElement('a');
-    link.href = fileURL;
-    link.download = fileName;
-    link.click();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if (!isMobile) {
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCellDarren")) {
-            const fileName = clickedElement.getAttribute("data-darren");
-            const userConfirmation = window.confirm("Do you want to download Darren's " + clickedElement.textContent + " replay?");
-
-            if (userConfirmation) {
-                downloadDarrenFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    })
-};
-
-function downloadDarrenFile(fileName) {
-
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Darren/BAMBUUSCHONK_' + fileName + '.gbx';
-    const link = document.createElement('a');
-    link.href = fileURL;
-    link.download = fileName;
-    link.click();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if (!isMobile) {
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCellDom")) {
-            const fileName = clickedElement.getAttribute("data-dom");
-            const userConfirmation = window.confirm("Do you want to download Dom's " + clickedElement.textContent + " replay?");
-
-            if (userConfirmation) {
-                downloadDomFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    })
-};
-
-function downloadDomFile(fileName) {
-
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Dom/dom_' + fileName + '.gbx';
-    const link = document.createElement('a');
-    link.href = fileURL;
-    link.download = fileName;
-    link.click();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if (!isMobile) {
-    document.addEventListener("click", function (event) {
-        const clickedElement = event.target;
-        // Check if the clicked cell is in the first column (first child of the row)
-        if (clickedElement.classList.contains("downloadCellLeo")) {
-            const fileName = clickedElement.getAttribute("data-leo");
-            const userConfirmation = window.confirm("Do you want to download Leo's " + clickedElement.textContent + " replay?");
-
-            if (userConfirmation) {
-                downloadLeoFile(fileName);
-            } else {
-                // Handle case when the user cancels the download
-            }
-        }
-    })
-};
-
-function downloadLeoFile(fileName) {
-
-    const fileURL = 'https://github.com/deambulatory/scores/raw/main/Replays/Leo/Leo_' + fileName + '.gbx';
-    const link = document.createElement('a');
-    link.href = fileURL;
-    link.download = fileName;
+    link.download = trackName;
     link.click();
 }
 

@@ -3,64 +3,69 @@ git pull
 
 if($LASTEXITCODE){
 
-    Write-Host "git pull failed; there are probably conflicts that need resolving...exiting script" -f Red
+    Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
     pause
-    exit
-    
+    exit 1
+}
+
+# Add your computer username and player name here
+$usernamePlayerNameMap = @{
+    "Paul" = "Paul";
+    "Leo" = "Leo";
+    "Aidan" = "Aidan";
+    "dom" = "Dom";
+    "BAMABUSS CHONK" = "Darren";
+    "Nordom" = "Rob";
+}
+
+if(-not $usernamePlayerNameMap[$env:username]){
+    Write-Host "Your username is missing from the `$usernamePlayerNameMap dictionary in this script. Add it before continuing."
+    pause
+    exit 1
 }
 
 # Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
 # This script replies on people running it directly from their local repo misc scripts folder
 #############################################################################################################
 
+$replayTempPath = "$env:appdata\TrackmaniaTempReplays"
+$tempCsvFilePath = "$env:appdata\TrackmaniaTempReplays\times.csv"
+$repoPath = $PSScriptRoot.Replace("\MiscScripts", "")
+$currentPlayerName = $usernamePlayerNameMap[$env:username]
+$targetReplayFolder = "$repoPath\Replays\$currentPlayerName"
+
+if(test-path $replayTempPath) { 
+
+    remove-item $replayTempPath -Force -Recurse | Out-Null
+    new-item $replayTempPath -ItemType directory | Out-Null
+
+} else { new-item $replayTempPath -ItemType directory | Out-Null }
 
 
-if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
+get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $replayTempPath -Force
 
-    remove-item "C:\Users\$env:username\AppData\Roaming\Replays" -Force -Recurse | Out-Null
-    new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null
-
-} else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
-
-$repo = $psscriptroot
-$newReplayPath = "C:\Users\$env:username\AppData\Roaming\Replays" 
-
-switch ($env:username)
-{
-    "Paul" { $repo = $repo -replace ("MiscScripts", "Replays\Paul")   }
-    "Leo"{ $repo = $repo -replace ("MiscScripts", "Replays\Leo")   }
-    "Aidan" { $repo = $repo -replace ("MiscScripts", "Replays\Aidan")   }
-    "BAMBUUS CHONK" { $repo = $repo -replace ("MiscScripts", "Replays\Darren") }
-    "Dom" { $repo = $repo -replace ("MiscScripts", "Replays\Dom") }
-}
-
-
-get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $newReplayPath -Force
-
-
-$items = get-childitem $newReplayPath | Sort-Object name
+$items = get-childitem $replayTempPath | Sort-Object name
 
 foreach ($item in $items) {
     
-    $modifiedFileName = $item.name.Split("-")[0]
-    $modifiedFileName += ".gbx"
-    $modifiedFileName = $modifiedFileName -replace ("BAMBUUSCHONK", "Darren")
+    $trackName = $item.name.Split("-")[0].Split("_")[1]
+    $modifiedFileName = $currentPlayerName + "_$trackName.gbx"
     Rename-item $item.FullName -NewName $modifiedFileName
 
 }
 
 ##########################################
 
-$files = Get-ChildItem $newReplayPath -ErrorAction SilentlyContinue
-
+$files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
+new-item $targetReplayFolder -ItemType directory -Force | Out-Null
 
 foreach($file in $files){
+    $file.FullName
     
-
-    Copy-item $file.FullName -Destination $repo -Force
+    Copy-item $file.FullName -Destination "$targetReplayFolder\$($file.Name)" -Force
 
 }
-
+exit 0
 
 #####################################################
 # Updated get-time code
@@ -68,19 +73,17 @@ foreach($file in $files){
 #############################################
 
 
-if (test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
+if (test-path $replayTempPath) { 
 
-    remove-item "C:\Users\$env:username\AppData\Roaming\Replays" -Force -Recurse | Out-Null
-    new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null
+    remove-item $replayTempPath -Force -Recurse | Out-Null
+    new-item $replayTempPath -ItemType directory | Out-Null
 
 }
-else { new-item "C:\Users\$env:username\AppData\Roaming\Replays" -ItemType directory | Out-Null }
+else { new-item $replayTempPath -ItemType directory | Out-Null }
 
-$path = "C:\Users\$env:username\AppData\Roaming\Replays"
+get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\autosaves" -Recurse | Copy-Item -Destination $replayTempPath -Force
 
-get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\autosaves" -Recurse | Copy-Item -Destination $path -Force
-
-$items = Get-ChildItem $path | Sort-Object Name
+$items = Get-ChildItem $replayTempPath | Sort-Object Name
 
 foreach ($item in $items) {
     $pattern = ".*_([A-E]\d+)-.*"
@@ -92,7 +95,7 @@ foreach ($item in $items) {
 
 ##########################################
 
-$files = Get-ChildItem $path -ErrorAction SilentlyContinue
+$files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
 
 foreach ($file in $files) {
     
@@ -168,9 +171,9 @@ foreach ($file in $files) {
         
     }
 
-    $track = $file.name -replace ".gbx", ""
+    $track = $file.name.Replace(".gbx", "").Replace("$($currentPlayerName)_", "")
 
-    if ($flag) { "$track," + "$formattedTime" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append }
+    if ($flag) { "$track," + "$formattedTime" |  out-file $tempCsvFilePath -Append }
 
     else {
             
@@ -186,88 +189,61 @@ foreach ($file in $files) {
     
         $track = $file.name -replace ".gbx", ""
 
-        "$track," + "$time" |  out-file "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Append
+        "$track," + "$time" |  out-file $tempCsvFilePath -Append
     }
 }
 
 # remove blank line at the end of txt file
 
-$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt")
+$content = [System.IO.File]::ReadAllText($tempCsvFilePath)
 $content = $content.Trim()
-[System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\Replays\times.txt", $content)
+[System.IO.File]::WriteAllText($tempCsvFilePath, $content)
 
 #########################
 
 $count = 0
-$repo = $psscriptroot
-$pathCSV = $repo -replace "MiscScripts", "data.csv"
+$pathCSV = "$repoPath\data.csv"
 $csv = import-csv $pathCSV
-$times = import-csv "C:\Users\$env:username\AppData\Roaming\Replays\times.txt" -Header 'Track', 'Time'
-$user = ""
-$export = "C:\Users\$env:username\AppData\Roaming\export.csv"
-
-    switch ($env:username)
-    {
-        "Paul" { $user = "Paul"  }
-        "Leo"{  $user = "Leo"  }
-        "Aidan" { $user = "Aidan"   }
-        "BAMBUUS CHONK" { $user = "Darren" }
-        "Dom" { $user = "Dom"}
-    }
-    
+$times = import-csv $tempCsvFilePath -Header 'Track', 'Time'
+$exportPath = "$env:appdata\export.csv"
 
 foreach($line in $csv){
-
-   
     foreach($time in $times){
-    
-        if($line.Track -eq $time.Track){
 
-            
-            if($line.$user -eq $time.Time) {  }
+        if($line.Track -eq $time.Track){
+            if($line.$playerName -eq $time.Time) {  }
             else {                 
 
-                Write-Host "Updating $($line.Track) from $($line.$user) to $($time.Time) " -f green
+                Write-Host "Updating $($line.Track) from $($line.$playerName) to $($time.Time) " -f green
                 $count ++
-                $line.$user = $time.Time
-                            
+                $line.$playerName = $time.Time
              }
-
-        }       
-
+        }
     }
 
-     $line | export-csv "C:\Users\$env:username\AppData\Roaming\export.csv" -append -nti
+     $line | export-csv $exportPath -append -nti
 
 }
 
-$content = [System.IO.File]::ReadAllText("C:\Users\$env:username\AppData\Roaming\export.csv")
+$content = [System.IO.File]::ReadAllText($exportPath)
 $content = $content.Trim() 
 $content = $content -replace "`"", ""
-[System.IO.File]::WriteAllText("C:\Users\$env:username\AppData\Roaming\export.csv", $content)
+[System.IO.File]::WriteAllText($exportPath, $content)
 
 Remove-Item $pathCSV -Force
-Copy-Item $export -Destination $pathCSV -Force
-Remove-Item $export -Force
+Copy-Item $exportPath -Destination $pathCSV -Force
+Remove-Item $exportPath -Force
 
 Write-host "$count time(s) updated in the CSV file" -f Green
 
-
-git add --all
-Write-Host "Committing any changes to repo" -f green
-git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
-Write-Host "Pushing any changes to repo" -f green
-git push --quiet 
-
-pause
-
-
-
-
-
-
-
-
-
-
-
+# $currentDir = $PWD
+# Set-Location $repoPath
+# git reset
+# git add Replays
+# git add data.csv
+# Write-Host "Committing any changes to repo" -f green
+# #git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
+# Write-Host "Pushing any changes to repo" -f green
+# #git push --quiet 
+# cd $currentDir
+# pause
