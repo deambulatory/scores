@@ -102,7 +102,7 @@ foreach ($item in $items) {
 ##########################################
 
 $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
-"Hello"
+
 foreach ($file in $files) {
     
     $flag = $false
@@ -248,7 +248,7 @@ git reset
 git add Replays
 git add data.csv
 Write-Host "Committing any changes to repo" -f green
-git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
+git commit -m "copyReplaysAndUpdateCSV.ps1"
 Write-Host "Pushing any changes to repo" -f green
 git push --quiet 
 Set-Location $currentDir
