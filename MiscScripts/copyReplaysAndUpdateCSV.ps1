@@ -243,9 +243,11 @@ Remove-Item $export -Force
 
 Write-host "$count time(s) updated in the CSV file" -f Green
 
-Write-Host "Committing and pushing to remote repo"
-
+Write-Host "Committing changes" -f green
 git commit -m "Update CSV and replays" -a
+""
+Write-Host "Pushing changes to remote repo" -f green
+
 git push
 
 pause
