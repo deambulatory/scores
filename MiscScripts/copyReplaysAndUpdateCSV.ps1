@@ -177,7 +177,6 @@ foreach ($file in $files) {
         
     }
 
-    Write-Host "Current player name: $currentPlayerName"
     $track = $file.name.Replace(".gbx", "").Replace("$($currentPlayerName)_", "")
 
     if ($flag) { "$track," + "$formattedTime" |  out-file $tempCsvFilePath -Append }
@@ -249,8 +248,8 @@ git reset
 git add Replays
 git add data.csv
 Write-Host "Committing any changes to repo" -f green
-#git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
+git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
 Write-Host "Pushing any changes to repo" -f green
-#git push --quiet 
+git push --quiet 
 Set-Location $currentDir
 pause
