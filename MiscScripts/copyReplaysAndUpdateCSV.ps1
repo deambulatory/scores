@@ -1,4 +1,13 @@
-﻿Write-Host "Getting latest repo"
+﻿$ISE = "" + $psISE.CurrentFile.FullPath
+
+if($ISE) { 
+
+    $path = $ISE.Replace('\copyReplaysAndUpdateCSV.ps1', "") 
+    cd $path
+
+}
+
+Write-Host "Getting latest repo"
 git pull
 
 if($LASTEXITCODE){
