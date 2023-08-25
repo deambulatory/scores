@@ -51,7 +51,6 @@ foreach($file in $files){
 
 }
 
-Write-Host "Copied replays to repo" -f green
 
 #####################################################
 # Updated get-time code
@@ -243,11 +242,11 @@ Remove-Item $export -Force
 
 Write-host "$count time(s) updated in the CSV file" -f Green
 
-Write-Host "Adding new replays back to repo" -f green
+
 git add --all
-Write-Host "Committing changes to repo" -f green
-git commit -m "Update CSV and replays" -a
-Write-Host "Pushing changes to repo" -f green
+Write-Host "Committing any changes to repo" -f green
+git commit -m "Update CSV and replays" -a -q
+Write-Host "Pushing any changes to repo" -f green
 git push --quiet 
 
 pause
