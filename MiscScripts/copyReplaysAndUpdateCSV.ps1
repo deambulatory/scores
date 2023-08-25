@@ -243,14 +243,14 @@ Remove-Item $exportPath -Force
 
 Write-host "$count time(s) updated in the CSV file" -f Green
 
-# $currentDir = $PWD
-# Set-Location $repoPath
-# git reset
-# git add Replays
-# git add data.csv
-# Write-Host "Committing any changes to repo" -f green
-# #git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
-# Write-Host "Pushing any changes to repo" -f green
-# #git push --quiet 
-# cd $currentDir
-# pause
+$currentDir = $PWD
+Set-Location $repoPath
+git reset
+git add Replays
+git add data.csv
+Write-Host "Committing any changes to repo" -f green
+#git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
+Write-Host "Pushing any changes to repo" -f green
+#git push --quiet 
+Set-Location $currentDir
+pause
