@@ -1,6 +1,6 @@
 ﻿$ISE = "" + $psISE.CurrentFile.FullPath
 
-if($ISE) { 
+if ($ISE) { 
     $path = $ISE.Replace('\copyReplaysAndUpdateCSV.ps1', "") 
     Set-Location $path
 }
@@ -8,7 +8,7 @@ if($ISE) {
 Write-Host "Getting latest repo"
 git pull
 
-if($LASTEXITCODE){
+if ($LASTEXITCODE) {
 
     Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
     pause
@@ -17,15 +17,15 @@ if($LASTEXITCODE){
 
 # Add your computer username and player name here
 $usernamePlayerNameMap = @{
-    "Paul" = "Paul";
-    "Leo" = "Leo";
-    "Aidan" = "Aidan";
-    "dom" = "Dom";
+    "Paul"           = "Paul";
+    "Leo"            = "Leo";
+    "Aidan"          = "Aidan";
+    "dom"            = "Dom";
     "BAMABUSS CHONK" = "Darren";
-    "Nordom" = "Rob";
+    "Nordom"         = "Rob";
 }
 
-if(-not $usernamePlayerNameMap[$env:username]){
+if (-not $usernamePlayerNameMap[$env:username]) {
     Write-Host "Your username is missing from the `$usernamePlayerNameMap dictionary in this script. Add it before continuing."
     pause
     exit 1
@@ -41,12 +41,13 @@ $repoPath = $PSScriptRoot.Replace("\MiscScripts", "")
 $currentPlayerName = $usernamePlayerNameMap[$env:username]
 $targetReplayFolder = "$repoPath\Replays\$currentPlayerName"
 
-if(test-path $replayTempPath) { 
+if (test-path $replayTempPath) { 
 
     remove-item $replayTempPath -Force -Recurse | Out-Null
     new-item $replayTempPath -ItemType directory | Out-Null
 
-} else { new-item $replayTempPath -ItemType directory | Out-Null }
+}
+else { new-item $replayTempPath -ItemType directory | Out-Null }
 
 
 get-childitem -path "C:\Users\$env:username\Documents\TrackMania\Tracks\Replays\Autosaves" | Copy-Item -Destination $replayTempPath -Force
@@ -66,7 +67,7 @@ foreach ($item in $items) {
 $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
 new-item $targetReplayFolder -ItemType directory -Force | Out-Null
 
-foreach($file in $files){
+foreach ($file in $files) {
     Copy-item $file.FullName -Destination "$targetReplayFolder\$($file.Name)" -Force
 }
 
@@ -210,21 +211,21 @@ $csv = import-csv $pathCSV
 $times = import-csv $tempCsvFilePath -Header 'Track', 'Time'
 $exportPath = "$env:appdata\export.csv"
 
-foreach($line in $csv){
-    foreach($time in $times){
+foreach ($line in $csv) {
+    foreach ($time in $times) {
 
-        if($line.Track -eq $time.Track){
-            if($line.$currentPlayerName -eq $time.Time) {  }
+        if ($line.Track -eq $time.Track) {
+            if ($line.$currentPlayerName -eq $time.Time) {  }
             else {                 
 
                 Write-Host "Updating $($line.Track) from $($line.$currentPlayerName) to $($time.Time) " -f green
                 $count ++
                 $line.$currentPlayerName = $time.Time
-             }
+            }
         }
     }
 
-     $line | export-csv $exportPath -append -nti
+    $line | export-csv $exportPath -append -nti
 
 }
 
@@ -237,10 +238,9 @@ Remove-Item $pathCSV -Force
 Copy-Item $exportPath -Destination $pathCSV -Force
 Remove-Item $exportPath -Force
 
-Write-host "$count time(s) updated in the CSV file" -f Green
+if ($count) {
 
-if($count){
-
+    Write-host "$count time(s) updated in the CSV file" -f Green
     $currentDir = $PWD
     Set-Location $repoPath
     git reset
@@ -252,6 +252,12 @@ if($count){
     git push --quiet 
     Set-Location $currentDir
     
-} else { write-host "No changes to push" -f green      }
+}
+else { 
+
+    Write-host "No times to update in the CSV file" -f yellow
+    write-host "No changes to push" -f yellow
+
+}
 
 pause
