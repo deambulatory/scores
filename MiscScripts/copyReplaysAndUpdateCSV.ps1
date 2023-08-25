@@ -245,7 +245,7 @@ Write-host "$count time(s) updated in the CSV file" -f Green
 
 Write-Host "Committing and pushing to remote repo"
 
-git add -all
+git add --all
 git commit -m "Update CSV and replays" -a
 git push
 
