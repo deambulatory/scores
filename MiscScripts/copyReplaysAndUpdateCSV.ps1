@@ -5,7 +5,7 @@ if($ISE) {
     Set-Location $path
 }
 
-Write-Host "Getting latest repo"
+# Write-Host "Getting latest repo"
 # git pull
 
 # if($LASTEXITCODE){
