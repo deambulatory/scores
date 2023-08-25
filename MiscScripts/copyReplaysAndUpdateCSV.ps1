@@ -3,12 +3,16 @@ git pull
 
 if($LASTEXITCODE){
 
-
     Write-Host "git pull failed; there are probably conflicts that need resolving...exiting script" -f Red
     pause
     exit
     
 }
+
+# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
+# This script replies on people running it directly from their local repo misc scripts folder
+#############################################################################################################
+
 
 
 if(test-path "C:\Users\$env:username\AppData\Roaming\Replays") { 
