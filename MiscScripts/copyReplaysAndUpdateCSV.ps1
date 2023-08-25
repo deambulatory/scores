@@ -245,7 +245,7 @@ Write-host "$count time(s) updated in the CSV file" -f Green
 
 git add --all
 Write-Host "Committing any changes to repo" -f green
-git commit -m "Update CSV and replays" -a -q
+git commit -m "copyReplaysAndUpdateCSV.ps1" -a 
 Write-Host "Pushing any changes to repo" -f green
 git push --quiet 
 
