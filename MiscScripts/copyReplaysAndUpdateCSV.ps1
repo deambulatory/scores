@@ -31,10 +31,6 @@ if (-not $usernamePlayerNameMap[$env:username]) {
     exit 1
 }
 
-# Copy replays to %appdata%, rename, and then copy to the local repo replay folder depending on the username
-# This script replies on people running it directly from their local repo misc scripts folder
-#############################################################################################################
-
 $replayTempPath = "$env:appdata\TrackmaniaTempReplays"
 $tempCsvFilePath = "$env:appdata\TrackmaniaTempReplays\times.csv"
 $repoPath = $PSScriptRoot.Replace("\MiscScripts", "")
@@ -62,20 +58,12 @@ foreach ($item in $items) {
 
 }
 
-##########################################
-
 $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
 new-item $targetReplayFolder -ItemType directory -Force | Out-Null
 
 foreach ($file in $files) {
     Copy-item $file.FullName -Destination "$targetReplayFolder\$($file.Name)" -Force
 }
-
-#####################################################
-# Updated get-time code
-# Copy replays to %appdata% and rename the files
-#############################################
-
 
 if (test-path $replayTempPath) { 
 
@@ -96,8 +84,6 @@ foreach ($item in $items) {
         Rename-Item $item.FullName -NewName $modifiedFileName
     }
 }
-
-##########################################
 
 $files = Get-ChildItem $replayTempPath -ErrorAction SilentlyContinue
 
@@ -133,7 +119,6 @@ foreach ($file in $files) {
         $formattedTime = $formattedHour + $formattedMinutes + $formattedSeconds + $lastTwoNumbers   
 
     }
-
 
     if ($numberWithoutLastDigit.ToString().Length -eq 4) {
 
@@ -197,13 +182,9 @@ foreach ($file in $files) {
     }
 }
 
-# remove blank line at the end of txt file
-
 $content = [System.IO.File]::ReadAllText($tempCsvFilePath)
 $content = $content.Trim()
 [System.IO.File]::WriteAllText($tempCsvFilePath, $content)
-
-#########################
 
 $count = 0
 $pathCSV = "$repoPath\data.csv"
