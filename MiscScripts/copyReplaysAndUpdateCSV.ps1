@@ -26,6 +26,7 @@ $usernamePlayerNameMap = @{
     "dom"            = "Dom";
     "BAMABUSS CHONK" = "Darren";
     "Nordom"         = "Rob";
+    "Darren"         = "Darren";
 }
 
 if (-not $usernamePlayerNameMap[$env:username]) {
