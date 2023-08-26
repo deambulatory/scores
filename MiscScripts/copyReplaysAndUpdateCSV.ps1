@@ -1,4 +1,7 @@
-﻿$ISE = "" + $psISE.CurrentFile.FullPath
+﻿param([switch]$NoPause)
+function MaybePause(){ if(-not $NoPause) { pause } }
+
+$ISE = "" + $psISE.CurrentFile.FullPath
 
 if ($ISE) { 
     $path = $ISE.Replace('\copyReplaysAndUpdateCSV.ps1', "") 
@@ -11,7 +14,7 @@ git pull
 if ($LASTEXITCODE) {
 
     Write-Host "git pull failed; there are probably conflicts that need resolving... exiting script" -f Red
-    pause
+    MaybePause
     exit 1
 }
 
@@ -27,7 +30,7 @@ $usernamePlayerNameMap = @{
 
 if (-not $usernamePlayerNameMap[$env:username]) {
     Write-Host "Your username is missing from the `$usernamePlayerNameMap dictionary in this script. Add it before continuing."
-    pause
+    MaybePause
     exit 1
 }
 
@@ -241,4 +244,4 @@ else {
 
 }
 
-pause
+MaybePause
