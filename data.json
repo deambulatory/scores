@@ -1,0 +1,112 @@
+{
+    "tracks" : [
+        {
+            "name"          : "A01",
+            "trackType"     : "White",
+            "trackTimes"    : [
+                {
+                   "nadeo"  : "",
+                   "gold"   : "",
+                   "silver" : "",
+                   "bronze" : ""
+                }
+            ],
+            "playerTimes"   : [
+                {
+                    "name"  : "Aidan",
+                    "time"  : "",
+                    "rank"  : "poop"
+                }
+            ]
+        },
+        {
+            "name"          : "A02",
+            "trackType"     : "White",
+            "trackTimes"    : [
+                {
+                   "nadeo"  : "",
+                   "gold"   : "",
+                   "silver" : "",
+                   "bronze" : ""
+                }
+            ]
+        }
+    ],
+
+    "players" : [
+        {
+            "name" : "Aidan",
+            "trackTypesCompleted" : [
+                {
+                    "trackType" : "White",
+                    "completed" : true
+                },
+                {
+                    "trackType" : "Green",
+                    "completed" : true
+                }
+            ],
+            "medalCount" : [
+                {
+                    "nadeo"     : 0,
+                    "gold"      : 0,
+                    "silver"    : 0
+                }
+            ],
+            "rankCount" : [
+                {
+                    "1st"   : 0,
+                    "2nd"   : 0,
+                    "3rd"   : 0,
+                    "poop"  : 1
+                }
+            ]
+        }
+    ],
+
+    "uiModels" : {
+        "trackTable" : {
+            "names" : ["White", "Green", "Blue", "Red", "Black"],
+            "headerRow" : ["Track", "Aidan", "Paul", "...", "", "", ""],
+            "rows" : [
+                ["White", "A01" , 0, 0],
+                ["White", "A02" , 0, 0],
+                ["White", "A03" , 0, 0],
+                ["White", "A04", 0, 0]
+            ]
+        },
+        "totalTimeTable" : {
+            "name" : "Total times (OnHover: Displays the total time for each set of tracks",
+            "headerRow" : ["Track Type", "Aidan", "Paul", "...", "", "", ""],
+            "rows" : [
+                ["White", 0, 0],
+                ["Green", 0, 0],
+                ["Blue" , 0, 0],
+                ["Green", 0, 0],
+                ["Black", 0, 0]
+            ]
+        },
+        "medalTable" : {
+            "name" : "Medal Table (OnHover: Displays the count of the medals within the game",
+            "headerRow" : ["Ranks", "Aidan", "Paul", "...", "", "", ""],
+            "rows" : [
+                ["1st" , 0, 0],
+                ["1st" , 0, 0],
+                ["1st" , 0, 0],
+                ["Poop", 0, 0]
+            ]
+        },
+        "rankTable" : {
+            "name" : "Rank Table (OnHover: Displays the count of the ranks within this leaderboard",
+            "headerRow" : ["Ranks", "Aidan", "Paul", "...", "", "", ""],
+            "rows" : [
+                ["1st" , 0, 0],
+                ["1st" , 0, 0],
+                ["1st" , 0, 0],
+                ["Poop", 0, 0]
+            ]
+        }
+
+    }
+}
+
