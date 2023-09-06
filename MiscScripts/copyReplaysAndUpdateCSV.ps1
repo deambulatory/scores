@@ -104,17 +104,32 @@ foreach ($file in $files) {
 
     if ($numberWithoutLastDigit.ToString().Length -eq 6) {
         # eg 3979550 (1:06:19.55) 
+        # eg 3590060 (0:59:50.06)
 
         $flag = $true
 
         $firstFourNumbers = $numberWithoutLastDigit.ToString().Substring(0, 4)
         $lastTwoNumbers = $numberWithoutLastDigit.ToString().Substring($numberWithoutLastDigit.ToString().Length - 2)
                 
-        $hour = [math]::DivRem($firstFourNumbers, 3600, [ref]$null)
-        $minutes = [math]::DivRem($firstFourNumbers - 3600, 60, [ref]$null)
-        $formattedMinutes = "0" + "$minutes" + ":" 
-        $seconds = $firstFourNumbers % 60
+            if($firstFourNumbers -ge 3600) { 
         
+            $hour = [math]::DivRem($firstFourNumbers, 3600, [ref]$null)
+            $minutes = [math]::DivRem($firstFourNumbers - 3600, 60, [ref]$null)
+            if($minutes -gt 9) {  $formattedMinutes = "$minutes" + ":" }
+            else {   $formattedMinutes = "0" + "$minutes" + ":" }
+            $seconds = $firstFourNumbers % 60
+         }
+                        
+        else { 
+
+            $hour = "0"
+            $minutes = [math]::DivRem($firstFourNumbers, 60, [ref]$null)
+            if($minutes -gt 9) {  $formattedMinutes = "$minutes" + ":" }
+            else {   $formattedMinutes = "0" + "$minutes" + ":" }
+            $seconds = $firstFourNumbers % 60        
+        
+         }
+
         if ($seconds.ToString().length -eq 1) { $formattedSeconds = "0" + "$seconds" + "." }
         else { $formattedSeconds = "$seconds" + "." }
 
